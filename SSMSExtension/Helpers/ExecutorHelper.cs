@@ -26,6 +26,7 @@ namespace SSMSExtension.Helpers
 
         private VirtualPoint GetCaretPoint()
         {
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
             var p = ((TextSelection)document.Selection).ActivePoint;
 
             return new VirtualPoint(p);
@@ -33,6 +34,7 @@ namespace SSMSExtension.Helpers
 
         private string GetDocumentText()
         {
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
             var content = string.Empty;
             var selection = (TextSelection)document.Selection;
 
@@ -208,12 +210,18 @@ namespace SSMSExtension.Helpers
             return false;
         }
 
-        public void ExecuteSpHelpStatement()
+        /// <summary>
+        /// Executes sp_helptext on selected range. Returns the selection
+        /// </summary>
+        /// <returns></returns>
+        public string ExecuteSpHelpStatement()
         {
             Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
+            var selection = string.Empty;
+
             if (!CanExecute())
             {
-                return;
+                return selection;
             }
 
             TextSelection ts = (TextSelection)document.Selection;
@@ -221,34 +229,34 @@ namespace SSMSExtension.Helpers
             if (ts == null || ts.IsEmpty)
             {
                 //Nothing selected so don't do anything
-                return;
+                return selection;
             }
             else
             {
 
                 string t = ts.Text;
-                var helpText = string.Format("exec sp_helptext '{0}'", t);
-
+                selection = t.Trim();
                 var before = ts.ActivePoint.CreateEditPoint();
 
                 ts.Delete();
-                ts.Insert(string.Format("exec sp_helptext '{0}'", t));
+                ts.Insert(string.Format("exec sp_helptext '{0}'", selection));
                 var after = ts.ActivePoint.CreateEditPoint();
 
+                // Select the sp_helptext statement
                 MakeSelection(new VirtualPoint(before), new VirtualPoint(after));
 
                 // execute the statement
                 Exec();
 
-
-
                 // restore selection
                 ts.Delete();
                 ts.Insert(t);
 
+                //Reselect text so the editor looks like it did before executing command
                 MakeSelection(new VirtualPoint(before), new VirtualPoint(ts.ActivePoint.CreateEditPoint()));
-
             }
+
+            return selection;
         }
 
 
@@ -322,6 +330,7 @@ namespace SSMSExtension.Helpers
 
             public VirtualPoint(EnvDTE.TextPoint point)
             {
+                Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
                 Line = point.Line;
                 LineCharOffset = point.LineCharOffset;
             }

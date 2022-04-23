@@ -14,7 +14,7 @@ namespace SSMSExtension
     [ProvideMenuResource("Menus.ctmenu", 1)]
     [InstalledProductRegistration("#110", "#112", "2.0.2", IconResourceID = 400)] // Info on this package for Help/About
     [ProvideAutoLoad(UIContextGuids80.NoSolution, PackageAutoLoadFlags.BackgroundLoad)]
-    [ProvideToolWindow(typeof(FacetsDataWindow))]
+    [ProvideToolWindow(typeof(SpHelptextWindow))]
     public sealed class SSMSExtensionPackage : AsyncPackage
     {
         /// <summary>
@@ -37,7 +37,7 @@ namespace SSMSExtension
             // Do any initialization that requires the UI thread after switching to the UI thread.
             await this.JoinableTaskFactory.SwitchToMainThreadAsync(cancellationToken);
             await SpHelptextCommand.InitializeAsync(this);
-            await FacetsDataWindowCommand.InitializeAsync(this);
+            await SpHelptextWindowCommand.InitializeAsync(this);
         }
 
         #endregion

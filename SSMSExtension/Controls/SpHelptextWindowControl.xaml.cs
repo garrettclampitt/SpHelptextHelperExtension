@@ -13,18 +13,19 @@
     /// <summary>
     /// Interaction logic for FacetsDataWindowControl.
     /// </summary>
-    public partial class FacetsDataWindowControl : UserControl
+    public partial class SpHelptextWindowControl : UserControl
     {
         bool facetsLoaded = false;
 
         private WebView2 _webView2Control;
         private CoreWebView2Environment _environment;
         private string _json;
+        private string _title;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="FacetsDataWindowControl"/> class.
+        /// Initializes a new instance of the <see cref="SpHelptextWindowControl"/> class.
         /// </summary>
-        public FacetsDataWindowControl()
+        public SpHelptextWindowControl()
         {
             InitializeComponent();
 
@@ -43,6 +44,21 @@
             if (facetsLoaded)
             {
                 LoadJson();
+            }
+        }
+
+        /// <summary>
+        /// Sets window header. Defaults to sp_helptext. Empty string sets header to sp_helptext.
+        /// </summary>
+        /// <param name="title"></param>
+        public void SetHeader(string title)
+        {
+            _title = title;
+
+            if (facetsLoaded)
+            {
+                _ = _webView2Control.ExecuteScriptAsync($"console.log('setting header');window.setHeader('{title ?? "" }');").ContinueWith(task => { /* do some other stuff */ },
+                                    TaskScheduler.FromCurrentSynchronizationContext());
             }
         }
 
@@ -86,14 +102,17 @@
             if (_json != null)
             {
                 LoadJson();
+                SetHeader(_title);
             }
         }
 
         private void LoadJson()
         {
-            _ = _webView2Control.ExecuteScriptAsync($"console.log('hello from ssms');window.setDiveData({_json});").ContinueWith(task => { /* do some other stuff */ },
+            _ = _webView2Control.ExecuteScriptAsync($"console.log('hello from ssms');window.setCode({_json});").ContinueWith(task => { /* do some other stuff */ },
                                     TaskScheduler.FromCurrentSynchronizationContext());
         }
+
+
 
         private void _webView2Control_CoreWebView2Ready(object sender, EventArgs e)
         {

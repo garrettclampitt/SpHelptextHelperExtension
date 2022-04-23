@@ -25,17 +25,16 @@ namespace SSMSExtension.Commands
     /// </summary>
     sealed class SpHelptextCommand
     {
-        public const int ExecuteSpHelpStatementCommandId = 0x0110;
-
-        public static readonly Guid CommandSet = new Guid("aa0b97d8-24c0-4b1d-8dc3-3ad25cc70311");
-
+        public const int ExecuteSpHelpStatementCommandId = 0x0100;
+        public static readonly Guid CommandSet = new Guid("41af3e7b-cff6-4b6a-b35f-2bd9aa8ea92f");
+        public static SpHelptextCommand Instance { get; private set; }
+        private Microsoft.VisualStudio.Shell.IAsyncServiceProvider ServiceProvider => this.package;
         public CommandEvents QueryExecuteEvent { get; private set; }
-
         private readonly AsyncPackage package;
         private readonly DTE2 dte;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="FacetsDataWindowCommand"/> class.
+        /// Initializes a new instance of the <see cref="SpHelptextWindowCommand"/> class.
         /// Adds our command handlers for menu (commands must exist in the command table file)
         /// </summary>
         /// <param name="package">Owner package, not null.</param>
@@ -51,15 +50,6 @@ namespace SSMSExtension.Commands
             var menuCommand = new OleMenuCommand(Command_ExecAsync, menuCommandID);
             menuCommand.BeforeQueryStatus += Command_QueryStatus;
             commandService.AddCommand(menuCommand);
-        }
-
-
-        private Microsoft.VisualStudio.Shell.IAsyncServiceProvider ServiceProvider => package;
-
-        public static SpHelptextCommand Instance
-        {
-            get;
-            private set;
         }
 
         /// <summary>
@@ -179,13 +169,13 @@ namespace SSMSExtension.Commands
                 // Get the instance number 0 of this tool window. This window is single instance so this instance
                 // is actually the only one.
                 // The last flag is set to true so that if the tool window does not exists it will be created.
-                ToolWindowPane window = this.package.FindToolWindow(typeof(FacetsDataWindow), 0, true);
+                ToolWindowPane window = this.package.FindToolWindow(typeof(SpHelptextWindow), 0, true);
                 if ((null == window) || (null == window.Frame))
                 {
                     throw new NotSupportedException("Cannot create tool window");
                 }
 
-                var diveWindow = window as FacetsDataWindow;
+                var diveWindow = window as SpHelptextWindow;
                 diveWindow.SetData(jsonHttp);
                 diveWindow.SetHeader(selection);
 

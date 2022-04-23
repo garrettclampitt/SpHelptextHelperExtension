@@ -1,76 +1,22 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <CommandTable xmlns="http://schemas.microsoft.com/VisualStudio/2005-10-18/CommandTable" xmlns:xs="http://www.w3.org/2001/XMLSchema">
 
-	<!--This is the file that defines the IDs for all the commands exposed by VisualStudio. -->
 	<Extern href="stdidcmd.h" />
-
-	<!--This header contains the command ids for the menus provided by the shell. -->
 	<Extern href="vsshlids.h" />
 
-	<Commands package="guidExecutorPackage">
+	<Commands package="guidSpHelptextPackage">
 
 		<Groups>
-			<Group guid="guidExecutorPackageCmdSet" id="MyMenuGroup" priority="0x0600">
-				<Parent guid="guidSHLMainMenu" id="IDM_VS_TOOL_STANDARD" />
-			</Group>
-			<Group guid="guidExecutorPackageCmdSet" id="MyToolsMenuGroup" priority="0x0600">
+			<Group guid="guidSpHelpPackageCmdSet" id="MyToolsMenuGroup" priority="0x0600">
 				<Parent guid="guidSHLMainMenu" id="IDM_VS_MENU_TOOLS" />
 			</Group>
 		</Groups>
 
-		<Buttons>
-			<!--MyToolsMenuGroup-->
-			<Button guid="guidExecutorPackageCmdSet" id="cmdidExecutorCommand" priority="0x0100" type="Button">
-				<Parent guid="guidExecutorPackageCmdSet" id="MyToolsMenuGroup" />
-				<Icon guid="guidImages" id="bmpPic2" />
-				<CommandFlag>DefaultDisabled</CommandFlag>
-				<Strings>
-					<CommandName>SSMSExecutor.ExecuteCurrentStatement</CommandName>
-					<ToolTipText>Execute Current Statement</ToolTipText>
-					<ButtonText>Execute Statement</ButtonText>
-				</Strings>
-			</Button>
-
-			<Button guid="guidExecutorPackageCmdSet" id="cmdidExecutorCommand1" priority="0x0101" type="Button">
-				<Parent guid="guidExecutorPackageCmdSet" id="MyToolsMenuGroup" />
-				<Icon guid="guidImages" id="bmpPic2" />
-				<CommandFlag>DefaultDisabled</CommandFlag>
-				<Strings>
-					<CommandName>SSMSExecutor.ExecuteInnerStatement</CommandName>
-					<ToolTipText>Execute Inner Statement</ToolTipText>
-					<ButtonText>Execute Inner Statement</ButtonText>
-				</Strings>
-			</Button>
-
-			<Button guid="guidSpHelpPackageCmdSet" id="cmdidExecutorCommand2" priority="0x0110" type="Button">
-				<Parent guid="guidSpHelpPackageCmdSet" id="MyToolsMenuGroup" />
-				<Icon guid="guidImages" id="bmpPic2" />
-				<CommandFlag>DefaultDisabled</CommandFlag>
-				<Strings>
-					<CommandName>SSMSExecutor.sp_helptext</CommandName>
-					<ToolTipText>Execute sp_helptext Statement</ToolTipText>
-					<ButtonText>Execute sp_helptext Statement</ButtonText>
-					<LocCanonicalName>.VSIX.SpHelpText</LocCanonicalName>
-				</Strings>
-			</Button>
-
-			<!-- MyMenuGroup -->
-			<Button guid="guidExecutorPackageCmdSet" id="cmdidExecutorCommand" priority="0x0100" type="Button">
-				<Parent guid="guidExecutorPackageCmdSet" id="MyMenuGroup" />
-				<Icon guid="guidImages" id="bmpPic2" />
-				<CommandFlag>DefaultDisabled</CommandFlag>
-				<Strings>
-					<CommandName>SSMSExecutor.ExecuteCurrentStatement</CommandName>
-					<ToolTipText>Execute Current Statement</ToolTipText>
-					<ButtonText>Execute Statement</ButtonText>
-					<LocCanonicalName>.VSIX.ExecuteStatement</LocCanonicalName>
-				</Strings>
-			</Button>
-
-			<Button guid="guidSpHelpPackageCmdSet" id="cmdidExecutorCommand2" priority="0x0110" type="Button">
+		<Buttons>			
+			<Button guid="guidSpHelpPackageCmdSet" id="cmdidSpHelptextCommand" priority="0x0100" type="Button">
 				<Parent guid="guidSpHelpPackageCmdSet" id="MyMenuGroup" />
-				<Icon guid="guidImages" id="bmpPic2" />
-				<CommandFlag>DefaultDisabled</CommandFlag>
+				<Icon guid="guidImages" id="bmpPic1" />
+				<CommandFlag>DefaultInvisible</CommandFlag>
 				<Strings>
 					<CommandName>SSMSExecutor.sp_helptext</CommandName>
 					<ToolTipText>Execute sp_helptext Statement</ToolTipText>
@@ -80,76 +26,40 @@
 			</Button>
 
 			<!-- Add window to Toolbar > View > Other Windows > FacetsDataWindow -->
-			<Button guid="guidDataDivePackageCmdSet" id="cmdidFacetsDataWindowCommand" priority="0x0100" type="Button">
+			<Button guid="guidSpHelpPackageCmdSet" id="cmdidSpHelptextWindowCommand" priority="0x0100" type="Button">
 				<Parent guid="guidSHLMainMenu" id="IDG_VS_WNDO_OTRWNDWS1" />
-				<Icon guid="guidImages1" id="bmpPic1" />
+				<Icon guid="guidImages" id="bmpPic1" />
 				<Strings>
-					<ButtonText>FacetsDataWindow</ButtonText>
+					<ButtonText>sp_helptext Window</ButtonText>
 				</Strings>
 			</Button>
 		</Buttons>
 
 		<Bitmaps>
-			<Bitmap guid="guidImages" href="Resources\ExecutorCommand.png" usedList="bmpPic1, bmpPic2" />
-			<Bitmap guid="guidImages" href="Resources\FacetsDiveCommand.png" usedList="bmpPic1, bmpPic2, bmpPicSearch, bmpPicX, bmpPicArrows, bmpPicStrikethrough" />
-			<Bitmap guid="guidImages1" href="Resources\FacetsDataWindowCommand.png" usedList="bmpPic1, bmpPic2, bmpPicSearch, bmpPicX, bmpPicArrows, bmpPicStrikethrough" />
+			<Bitmap guid="guidImages" href="Resources\sphelptext.png" usedList="bmpPic1" />
 		</Bitmaps>
 
 	</Commands>
 
 	<KeyBindings>
-		<KeyBinding guid="guidExecutorPackageCmdSet" id="cmdidExecutorCommand" editor="guidSqlQueryEditor" mod1="CONTROL SHIFT" key1="E" />
-		<KeyBinding guid="guidSpHelpPackageCmdSet" id="cmdidExecutorCommand2" editor="guidSqlQueryEditor" mod1="CONTROL SHIFT" key1="M" />
+		<KeyBinding guid="guidSpHelpPackageCmdSet" id="cmdidSpHelptextCommand" editor="guidSqlQueryEditor" mod1="CONTROL SHIFT" key1="." />
 	</KeyBindings>
 
 	<Symbols>
 		<!-- This is the package guid. -->
-		<GuidSymbol name="guidExecutorPackage" value="{f7764872-b4bc-4a5f-902a-5a7b95e0a81a}" />
+		<GuidSymbol name="guidSpHelptextPackage" value="{f7764872-b4bc-4a5f-902a-5a7b95e0a81a}" />
 
-		<!-- This is the guid used to group the menu commands together -->
-		<GuidSymbol name="guidDataDivePackageCmdSet" value="{bbbf4352-bc56-4939-a805-9a6f56b8d679}">
-			<IDSymbol name="MyMenuGroup" value="0x1020" />
-			<IDSymbol name="FacetsDiveCommandId" value="0x0100" />
-			<IDSymbol value="4129" name="cmdidFacetsDataWindowCommand" />
-		</GuidSymbol>
-
-		<GuidSymbol name="guidExecutorPackageCmdSet" value="{746c2fb4-20a2-4d26-b95d-f8db97c16875}">
+		<GuidSymbol name="guidSpHelpPackageCmdSet" value="{41af3e7b-cff6-4b6a-b35f-2bd9aa8ea92f}">
 			<IDSymbol name="MyMenuGroup" value="0x1020" />
 			<IDSymbol name="MyToolsMenuGroup" value="0x1021" />
-			<IDSymbol name="cmdidExecutorCommand" value="0x0100" />
-			<IDSymbol name="cmdidExecutorCommand1" value="0x101" />
-		</GuidSymbol>
-
-		<GuidSymbol name="guidSpHelpPackageCmdSet" value="{5b856d29-5852-4ba3-9f89-c57a87afd92c}">
-			<IDSymbol name="MyMenuGroup" value="0x1020" />
-			<IDSymbol name="MyToolsMenuGroup" value="0x1021" />
-			<IDSymbol name="cmdidExecutorCommand2" value="0x110" />
+			<IDSymbol name="cmdidSpHelptextCommand" value="0x0100" />
+			<IDSymbol name="cmdidSpHelptextWindowCommand" value="0x0200" />
 		</GuidSymbol>
 
 		<GuidSymbol name="guidSqlQueryEditor" value="{B5A506EB-11BE-4782-9A18-21265C2CA0B4}" />
 
-		<GuidSymbol name="guidImages" value="{f5b57155-c84e-4bd1-812e-ed8512800bfd}">
-			<IDSymbol name="bmpPic1" value="1" />
-			<IDSymbol name="bmpPic2" value="2" />
-		</GuidSymbol>
-
-
 		<GuidSymbol name="guidImages" value="{44e3b7f0-b8e6-4f0d-ba5d-3be1e400186b}">
 			<IDSymbol name="bmpPic1" value="1" />
-			<IDSymbol name="bmpPic2" value="2" />
-			<IDSymbol name="bmpPicSearch" value="3" />
-			<IDSymbol name="bmpPicX" value="4" />
-			<IDSymbol name="bmpPicArrows" value="5" />
-			<IDSymbol name="bmpPicStrikethrough" value="6" />
-		</GuidSymbol>
-
-		<GuidSymbol value="{1d27f703-4c56-4b34-afa3-bf490968fab7}" name="guidImages1">
-			<IDSymbol name="bmpPic1" value="1" />
-			<IDSymbol name="bmpPic2" value="2" />
-			<IDSymbol name="bmpPicSearch" value="3" />
-			<IDSymbol name="bmpPicX" value="4" />
-			<IDSymbol name="bmpPicArrows" value="5" />
-			<IDSymbol name="bmpPicStrikethrough" value="6" />
 		</GuidSymbol>
 	</Symbols>
 </CommandTable>

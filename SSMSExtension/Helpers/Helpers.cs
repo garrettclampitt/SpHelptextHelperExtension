@@ -6,6 +6,7 @@ namespace SSMSExtension.Helpers
     {
         public static bool HasActiveDocument(this DTE2 dte)
         {
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
             if (dte != null && dte.ActiveDocument != null)
             {
                 var doc = (dte.ActiveDocument.DTE)?.ActiveDocument;
@@ -17,6 +18,7 @@ namespace SSMSExtension.Helpers
 
         public static EnvDTE.Document GetDocument(this DTE2 dte)
         {
+            Microsoft.VisualStudio.Shell.ThreadHelper.ThrowIfNotOnUIThread();
             if (dte.HasActiveDocument())
             {
                 return (dte.ActiveDocument.DTE)?.ActiveDocument;

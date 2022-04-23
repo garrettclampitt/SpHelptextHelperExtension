@@ -3,38 +3,19 @@ using Microsoft.VisualStudio.Shell.Interop;
 using SSMSExtension.Controls;
 using System;
 using System.ComponentModel.Design;
-using IAsyncServiceProvider = Microsoft.VisualStudio.Shell.Interop.IAsyncServiceProvider;
 using Task = System.Threading.Tasks.Task;
 
 namespace SSMSExtension.Commands
 {
-    /// <summary>
-    /// Command handler
-    /// </summary>
-    internal sealed class FacetsDataWindowCommand
+    internal sealed class SpHelptextWindowCommand
     {
-        /// <summary>
-        /// Command ID.
-        /// </summary>
-        public const int CommandId = 4129;
+        public static readonly Guid CommandSet = new Guid("41af3e7b-cff6-4b6a-b35f-2bd9aa8ea92f");
+        public const int CommandId = 0x0200;
 
-        /// <summary>
-        /// Command menu group (command set GUID).
-        /// </summary>
-        public static readonly Guid CommandSet = new Guid("bbbf4352-bc56-4939-a805-9a6f56b8d679");
-
-        /// <summary>
-        /// VS Package that provides this command, not null.
-        /// </summary>
         private readonly AsyncPackage package;
+        public static SpHelptextWindowCommand Instance { get; private set; }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="FacetsDataWindowCommand"/> class.
-        /// Adds our command handlers for menu (commands must exist in the command table file)
-        /// </summary>
-        /// <param name="package">Owner package, not null.</param>
-        /// <param name="commandService">Command service to add command to, not null.</param>
-        private FacetsDataWindowCommand(AsyncPackage package, OleMenuCommandService commandService)
+        private SpHelptextWindowCommand(AsyncPackage package, OleMenuCommandService commandService)
         {
             this.package = package ?? throw new ArgumentNullException(nameof(package));
             commandService = commandService ?? throw new ArgumentNullException(nameof(commandService));
@@ -42,26 +23,6 @@ namespace SSMSExtension.Commands
             var menuCommandID = new CommandID(CommandSet, CommandId);
             var menuItem = new MenuCommand(this.Execute, menuCommandID);
             commandService.AddCommand(menuItem);
-        }
-
-        /// <summary>
-        /// Gets the instance of the command.
-        /// </summary>
-        public static FacetsDataWindowCommand Instance
-        {
-            get;
-            private set;
-        }
-
-        /// <summary>
-        /// Gets the service provider from the owner package.
-        /// </summary>
-        private IAsyncServiceProvider ServiceProvider
-        {
-            get
-            {
-                return this.package;
-            }
         }
 
         /// <summary>
@@ -75,7 +36,7 @@ namespace SSMSExtension.Commands
             await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync(package.DisposalToken);
 
             OleMenuCommandService commandService = await package.GetServiceAsync(typeof(IMenuCommandService)) as OleMenuCommandService;
-            Instance = new FacetsDataWindowCommand(package, commandService);
+            Instance = new SpHelptextWindowCommand(package, commandService);
         }
 
         /// <summary>
@@ -90,7 +51,7 @@ namespace SSMSExtension.Commands
             // Get the instance number 0 of this tool window. This window is single instance so this instance
             // is actually the only one.
             // The last flag is set to true so that if the tool window does not exists it will be created.
-            ToolWindowPane window = this.package.FindToolWindow(typeof(FacetsDataWindow), 0, true);
+            ToolWindowPane window = this.package.FindToolWindow(typeof(SpHelptextWindow), 0, true);
             if ((null == window) || (null == window.Frame))
             {
                 throw new NotSupportedException("Cannot create tool window");

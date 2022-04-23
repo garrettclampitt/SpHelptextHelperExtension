@@ -13,11 +13,8 @@
         };
 
         window.setHeader = (string) => {
-            setTimeout(() => {
-
-                setHeaderText(string);
-
-            }, 100);
+            console.log(string);
+            setHeaderText(string);
         };
 
         setupComplete = false;
@@ -34,9 +31,9 @@
 
         function setHeaderText(text) {
             const header = document.getElementById("header")
-
+            console.log(header);
             if (header) {
-                header.innerHTML = `sp_helptext${ text ? text : '' }`;
+                header.innerHTML = `sp_helptext${text ? ": " + text : ''}`;
             }
         }
 
@@ -72,9 +69,8 @@
             overflow: auto;
         }
 
-        .header {            
-            background-color: #ffd139; /* Quick Draw yellow. */            
-            height: 45px;            
+        .header {
+            background-color: #ffd139; /* Quick Draw yellow. */
             width: 100%;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
@@ -82,14 +78,24 @@
         .flex {
             display: flex;
             align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .grow {
+            flex-grow: 1;
         }
 
         .bold {
             font-weight: 700;
+            word-break: break-word;
         }
 
         .third {
             width: 33.333%
+        }
+
+        .center {
+            text-align: center;
         }
 
         .justify {
@@ -98,6 +104,10 @@
 
         .justify-right {
             justify-content: right;
+        }
+
+        .space-evenly {
+            justify-content: space-evenly;
         }
 
         .shadow {
@@ -118,42 +128,39 @@
             padding: 2px 4px;
             border: solid 1px black;
             cursor: pointer;
-            margin-right: 6px;
+            margin: 4px 6px 4px 0px;
         }
 
         div.backup {
             display: none;
-            font-size: 32px;
-            /*color: #EBECE7;*/
+            font-size: 32px;            
             color: #dfe1d9;
         }
 
-        .no-select{
+        .no-select {
             /* prevent user from selecting back up text*/
             -webkit-user-select: none; /* Chrome all / Safari all */
             -moz-user-select: none; /* Firefox all */
             -ms-user-select: none; /* IE 10+ */
             user-select: none; /* Likely future */
-        
         }
 
-        .container:empty + div.backup {            
+        .container:empty + div.backup {
             display: flex;
         }
     </style>
 </head>
 <body>
-    <div class="header flex no-select">
-        <div class="third"></div>
-        <div class="third flex justify">
-            <span class="bold">sp_helptext</span>
+    <div class="header flex no-select space-evenly">
+        <div class="flex grow justify center" style="min-height: 45px;">
+            <span id="header" class="bold">sp_helptext</span>
         </div>
-        <div  class="third flex justify-right pr">
+        <div class="flex justify-right">
             <button onclick="copyToClipboard()">Copy</button>
             <button onclick="clearCode()">Clear</button>
         </div>
     </div>
     <!-- Code will appear in this tab -->
-    <pre><code id="json" class="container">code</code><div class="backup shadow flex justify no-select"><h2>sp_helptext</h2></div></pre>
+    <pre><code id="json" class="container"></code><div class="backup shadow flex justify no-select"><h2>sp_helptext</h2></div></pre>
 </body>
 </html>
