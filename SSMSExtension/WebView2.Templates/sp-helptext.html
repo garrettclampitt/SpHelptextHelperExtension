@@ -4,11 +4,19 @@
     <meta charset='utf-8'>
     <script>
 
-        window.setDiveData = (json) => {
+        window.setCode = (json) => {
             setTimeout(() => {
                 if (window.dive) {
                     codeElement().innerHTML = json;
                 }
+            }, 100);
+        };
+
+        window.setHeader = (string) => {
+            setTimeout(() => {
+
+                setHeaderText(string);
+
             }, 100);
         };
 
@@ -24,12 +32,21 @@
             window.dive = codeElement();
         });
 
+        function setHeaderText(text) {
+            const header = document.getElementById("header")
+
+            if (header) {
+                header.innerHTML = `sp_helptext${ text ? text : '' }`;
+            }
+        }
+
         function codeElement() {
             return document.getElementById("json");
         }
 
-        function clear() {
+        function clearCode() {
             codeElement().innerHTML = "";
+            setHeaderText();
         }
 
         function copyToClipboard() {
@@ -55,31 +72,88 @@
             overflow: auto;
         }
 
-        .header {
-            align-items: center;
-            background-color: #ffd139; /* Quick Draw yellow. */
-            display: flex;
-            height: 35px;
-            justify-content: center;
+        .header {            
+            background-color: #ffd139; /* Quick Draw yellow. */            
+            height: 45px;            
             width: 100%;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
-        pre {            
+        .flex {
+            display: flex;
+            align-items: center;
+        }
+
+        .bold {
+            font-weight: 700;
+        }
+
+        .third {
+            width: 33.333%
+        }
+
+        .justify {
+            justify-content: center;
+        }
+
+        .justify-right {
+            justify-content: right;
+        }
+
+        .shadow {
+            width: 100%;
+            height: calc(100vh - 80px);
+        }
+
+        pre {
             overflow: inherit;
-            padding: 16px;
+            padding: 8px 16px 16px 16px;
             margin: 0px;
         }
 
+        button {
+            background: none;
+            box-shadow: none;
+            border-radius: 4px;
+            padding: 2px 4px;
+            border: solid 1px black;
+            cursor: pointer;
+            margin-right: 6px;
+        }
+
+        div.backup {
+            display: none;
+            font-size: 32px;
+            /*color: #EBECE7;*/
+            color: #dfe1d9;
+        }
+
+        .no-select{
+            /* prevent user from selecting back up text*/
+            -webkit-user-select: none; /* Chrome all / Safari all */
+            -moz-user-select: none; /* Firefox all */
+            -ms-user-select: none; /* IE 10+ */
+            user-select: none; /* Likely future */
+        
+        }
+
+        .container:empty + div.backup {            
+            display: flex;
+        }
     </style>
 </head>
 <body>
-    <div class='header'>
-        <span>sp_helptext</span>
-        <button onclick="copyToClipboard()">Copy To Clipboard</button>
-        <button onclick="clear()">Clear</button>
+    <div class="header flex no-select">
+        <div class="third"></div>
+        <div class="third flex justify">
+            <span class="bold">sp_helptext</span>
+        </div>
+        <div  class="third flex justify-right pr">
+            <button onclick="copyToClipboard()">Copy</button>
+            <button onclick="clearCode()">Clear</button>
+        </div>
     </div>
     <!-- Code will appear in this tab -->
-    <pre><code id="json"></code></pre>
+    <pre><code id="json" class="container">code</code><div class="backup shadow flex justify no-select"><h2>sp_helptext</h2></div></pre>
 </body>
 </html>
