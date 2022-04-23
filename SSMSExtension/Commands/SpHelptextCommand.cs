@@ -27,12 +27,12 @@ namespace SSMSExtension.Commands
     {
         public const int ExecuteSpHelpStatementCommandId = 0x0110;
 
-        public static readonly Guid CommandSet = new Guid("5b856d29-5852-4ba3-9f89-c57a87afd92c");
+        public static readonly Guid CommandSet = new Guid("aa0b97d8-24c0-4b1d-8dc3-3ad25cc70311");
 
         public CommandEvents QueryExecuteEvent { get; private set; }
 
         private readonly AsyncPackage package;
-        readonly DTE2 dte;
+        private readonly DTE2 dte;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="FacetsDataWindowCommand"/> class.
@@ -48,7 +48,7 @@ namespace SSMSExtension.Commands
 
             // Create execute current statement menu item
             var menuCommandID = new CommandID(CommandSet, ExecuteSpHelpStatementCommandId);
-            var menuCommand = new OleMenuCommand(Command_Exec, menuCommandID);
+            var menuCommand = new OleMenuCommand(Command_ExecAsync, menuCommandID);
             menuCommand.BeforeQueryStatus += Command_QueryStatus;
             commandService.AddCommand(menuCommand);
         }
@@ -92,22 +92,22 @@ namespace SSMSExtension.Commands
             }
         }
 
-        private async void Command_Exec(object sender, EventArgs e)
+        private async void Command_ExecAsync(object sender, EventArgs e)
         {
             await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
             if (sender is OleMenuCommand menuCommand)
             {
                 var executor = new ExecutorHelper(dte);
-                executor.ExecuteSpHelpStatement();
+                var selection = executor.ExecuteSpHelpStatement();
 
                 var queryWindow = dte.ActiveDocument;
                 await Task.Delay(1500);
-                GetResults();
+                GetResults(selection);
                 queryWindow.Activate();
             }
         }
 
-        public void GetResults()
+        public void GetResults(string selection)
         {
             ThreadHelper.ThrowIfNotOnUIThread();
             var objType = ServiceCache.ScriptFactory.GetType();
@@ -187,10 +187,10 @@ namespace SSMSExtension.Commands
 
                 var diveWindow = window as FacetsDataWindow;
                 diveWindow.SetData(jsonHttp);
+                diveWindow.SetHeader(selection);
 
                 IVsWindowFrame windowFrame = (IVsWindowFrame)window.Frame;
                 Microsoft.VisualStudio.ErrorHandler.ThrowOnFailure(windowFrame.Show());
-
             }
         }
 
