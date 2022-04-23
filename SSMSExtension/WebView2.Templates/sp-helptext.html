@@ -1,0 +1,85 @@
+﻿<!doctype html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <script>
+
+        window.setDiveData = (json) => {
+            setTimeout(() => {
+                if (window.dive) {
+                    codeElement().innerHTML = json;
+                }
+            }, 100);
+        };
+
+        setupComplete = false;
+        window.addEventListener('WebComponentsReady', function () {
+
+            if (setupComplete) {
+                return;
+            }
+
+            setupComplete = true;
+
+            window.dive = codeElement();
+        });
+
+        function codeElement() {
+            return document.getElementById("json");
+        }
+
+        function clear() {
+            codeElement().innerHTML = "";
+        }
+
+        function copyToClipboard() {
+            /* Get the text field */
+            var copyText = codeElement();
+
+            /* Copy the text inside the text field */
+            navigator.clipboard.writeText(copyText.innerHTML);
+        }
+    </script>
+    <script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/webcomponentsjs/1.3.3/webcomponents-lite.js'></script>
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            width: 100%;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            overflow: auto;
+        }
+
+        .header {
+            align-items: center;
+            background-color: #ffd139; /* Quick Draw yellow. */
+            display: flex;
+            height: 35px;
+            justify-content: center;
+            width: 100%;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        pre {            
+            overflow: inherit;
+            padding: 16px;
+            margin: 0px;
+        }
+
+    </style>
+</head>
+<body>
+    <div class='header'>
+        <span>sp_helptext</span>
+        <button onclick="copyToClipboard()">Copy To Clipboard</button>
+        <button onclick="clear()">Clear</button>
+    </div>
+    <!-- Code will appear in this tab -->
+    <pre><code id="json"></code></pre>
+</body>
+</html>
