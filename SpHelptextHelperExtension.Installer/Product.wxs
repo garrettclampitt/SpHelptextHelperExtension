@@ -1,0 +1,627 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:util="http://schemas.microsoft.com/wix/UtilExtension">
+
+	<Product Id="*" Name="SpHelptextHelperExtension" Language="1033" Version="1.0.0.0" Manufacturer="Garrett Clampitt" UpgradeCode="63d32504-5e2b-4976-aa6f-e9c8f98eed34">
+		<Package InstallerVersion="200" Compressed="yes" InstallPrivileges="elevated" AdminImage="yes" InstallScope="perMachine" />
+
+		<MajorUpgrade DowngradeErrorMessage="A newer version of SpHelptextHelperExtension is already installed." />
+		<MediaTemplate />
+
+		<!--<Feature Id="Feature1" Level="1" Title="First feature" Description="This is the one and only feature in this installation">
+		</Feature>-->
+
+		<Feature Id="ProductFeature" Title="SpHelptextHelperExtension.Setup" Level="1">
+			<ComponentRef Id="CleanupMainApplicationFolderOnInstall"/>
+			<ComponentGroupRef Id="SuperFormFiles" />
+		</Feature>
+
+		<Property
+		  Id="ApplicationFolderName"
+		  Value="SpHelptextHelperExtension"
+      />
+
+
+		<!--<Property Id="ALLUSERS" Value="1" />-->
+		<!--equals to install="permachine" at package element but this element depricated -->
+		<Property Id="MSIUSEREALADMINDETECTION" Value="1" />
+
+	</Product>
+	
+	<Fragment>
+		<!-- Populating destination folder -->
+		<Directory Id="TARGETDIR" Name="SourceDir">
+			<!-- Should be program files (x86) -->
+			<Directory Id="ProgramFilesFolder">
+
+				<!-- Basically the Sql Server 18 folders -->
+				<Directory Id="MsSqlServer18" Name="Microsoft SQL Server Management Studio 18">
+					<Directory Id="Common7" Name="Common7">
+						<Directory Id="IdeFolder" Name="IDE">
+							<Directory Id="Extensions" Name="Extensions">
+								<Directory Id="INSTALLLOCATION" Name="SpHelptextHelperExtension">
+								</Directory>
+							</Directory>
+						</Directory>
+					</Directory>
+				</Directory>
+			</Directory>
+		</Directory>
+	</Fragment>
+
+
+	<Fragment>
+		<DirectoryRef Id="INSTALLLOCATION">
+			<Component Id="CleanupMainApplicationFolderOnInstall" Guid="dcfd1c11-a5a1-4d55-9632-60e469eb0a14">
+				<Condition><![CDATA[Installed OR NOT MANUALPRODUCTFOUND]]></Condition>
+				<RegistryValue Root="HKLM" Key="SOFTWARE\Test\Test" Name="Path" Type="string" Value="INSTALLLOCATION" KeyPath="yes" />
+				<util:RemoveFolderEx On="install" Property="INSTALLLOCATION" />
+			</Component>
+		</DirectoryRef>
+	</Fragment>
+	
+	
+	<Fragment>
+		<DirectoryRef Id="INSTALLLOCATION">
+			<Component Id="cmp741570AB1F3FA4DBC2508B3BC38C38F4" Guid="{75F3BBCD-51ED-4091-99DC-5A9B61958506}">
+				<File Id="fil909CC6651578D1772496EBD5F7D51CEF" KeyPath="yes" Source="C:\Users\Owner\source\repos\SpHelptextHelperExtension\SpHelptextHelperExtension\bin\Debug\Azure.Core.dll" />
+			</Component>
+			<Component Id="cmpCCC354459421EBA2246D7F6408AAF801" Guid="{B6E2023C-BCA4-4BF6-8690-F6EDE402A6DD}">
+				<File Id="fil4A64AF82046B43855B6B9652EB8B53EB" KeyPath="yes" Source="C:\Users\Owner\source\repos\SpHelptextHelperExtension\SpHelptextHelperExtension\bin\Debug\Azure.Identity.dll" />
+			</Component>
+			<Component Id="cmpA9BB8B86F8652CB23561C35BDD87202C" Guid="{5348A321-9EBC-4603-96D3-AD6312470B59}">
+				<File Id="fil416BE3E56A6B8AC9E53EDB5BEEEF62A7" KeyPath="yes" Source="C:\Users\Owner\source\repos\SpHelptextHelperExtension\SpHelptextHelperExtension\bin\Debug\ConnectionDlg.dll" />
+			</Component>
+			<Component Id="cmp31816675AFE5D1384774B8A378ED0747" Guid="{EDB9D2F5-5059-4DD1-95BF-BC1495CD25B3}">
+				<File Id="filCCC071FC9D2A548946B27A1BEEEBBCF4" KeyPath="yes" Source="C:\Users\Owner\source\repos\SpHelptextHelperExtension\SpHelptextHelperExtension\bin\Debug\extension.vsixmanifest" />
+			</Component>
+			<Component Id="cmpE4892ACE74DFA8DAEEDF09B4EFCD7A87" Guid="{3AB9DF0B-DB99-4BAD-8811-C72817ACE6F8}">
+				<File Id="fil8CA4E5D7C59CAB86FE8A5DB6617AF80B" KeyPath="yes" Source="C:\Users\Owner\source\repos\SpHelptextHelperExtension\SpHelptextHelperExtension\bin\Debug\Microsoft.AnalysisServices.AdomdClient.dll" />
+			</Component>
+			<Component Id="cmpB4810D7605AF28C7C17787A3A855F1BC" Guid="{DBE41ACA-F3F7-4931-81BE-0C4B25C67793}">
+				<File Id="fil027D25D255AA12012CCAC556809738C3" KeyPath="yes" Source="C:\Users\Owner\source\repos\SpHelptextHelperExtension\SpHelptextHelperExtension\bin\Debug\Microsoft.Bcl.AsyncInterfaces.dll" />
+			</Component>
+			<Component Id="cmp8E216F6887D37B803CECF76C1D77B59C" Guid="{A45ED1E3-9CDA-4584-8129-86159168F4E9}">
+				<File Id="filE4A2C530B092602EFCCB38992AE80CF2" KeyPath="yes" Source="C:\Users\Owner\source\repos\SpHelptextHelperExtension\SpHelptextHelperExtension\bin\Debug\Microsoft.Data.SqlClient.dll" />
+			</Component>
+			<Component Id="cmpACF2953F6ACB72E540785A103CA27D20" Guid="{856CDEA5-97CA-4CC0-B9CB-B9D86EEAECB7}">
+				<File Id="fil1B4AD4EBB67033E3330C4496255260A9" KeyPath="yes" Source="C:\Users\Owner\source\repos\SpHelptextHelperExtension\SpHelptextHelperExtension\bin\Debug\Microsoft.Data.SqlClient.pdb" />
+			</Component>
+			<Component Id="cmp048B937D0372E8994D9BC27AC387458E" Guid="{930D9EF7-BF95-49ED-BB49-A80DBFDA18EF}">
+				<File Id="fil85F8EBDA5505F9A98FA756D6434130F0" KeyPath="yes" Source="C:\Users\Owner\source\repos\SpHelptextHelperExtension\SpHelptextHelperExtension\bin\Debug\Microsoft.Data.SqlClient.SNI.x64.dll" />
+			</Component>
+			<Component Id="cmpFCF7C86F0D84B3CD4D84F1BCA640ACA7" Guid="{6367DDA9-04B4-4053-9F7D-C923CAB6D4A8}">
+				<File Id="filE23FF38199B447FDC0FAD72C811459AD" KeyPath="yes" Source="C:\Users\Owner\source\repos\SpHelptextHelperExtension\SpHelptextHelperExtension\bin\Debug\Microsoft.Data.SqlClient.SNI.x64.pdb" />
+			</Component>
+			<Component Id="cmpBDBC3D1254679C4531446D6C612FB69B" Guid="{A74677DC-B8C2-4FFD-90BF-04F6874AF630}">
+				<File Id="filAF2B01130F35D0945AD3F94467102DAC" KeyPath="yes" Source="C:\Users\Owner\source\repos\SpHelptextHelperExtension\SpHelptextHelperExtension\bin\Debug\Microsoft.Data.SqlClient.SNI.x86.dll" />
+			</Component>
+			<Component Id="cmpB0E9F11906B51083BB599459553973B9" Guid="{695A1743-1834-4825-804B-0E2D4D1FE202}">
+				<File Id="fil4F12E810617C9588DB9AE8D8C2685C77" KeyPath="yes" Source="C:\Users\Owner\source\repos\SpHelptextHelperExtension\SpHelptextHelperExtension\bin\Debug\Microsoft.Data.SqlClient.SNI.x86.pdb" />
+			</Component>
+			<Component Id="cmpFFE237805E5E7464DAD284227AB9DE13" Guid="{6D242722-2D1E-46C4-AECB-58DF032989F4}">
+				<File Id="fil995316BD0BF61AA58943257EE0FF35D1" KeyPath="yes" Source="C:\Users\Owner\source\repos\SpHelptextHelperExtension\SpHelptextHelperExtension\bin\Debug\Microsoft.Data.Tools.Sql.BatchParser.dll" />
+			</Component>
+			<Component Id="cmp9B0850300AADAB6E1C41BD97B22B223E" Guid="{50858C31-52D8-43D1-BEE8-6C8F65504E0D}">
+				<File Id="filEA6047FE47B7539CB86846D2BEA32818" KeyPath="yes" Source="C:\Users\Owner\source\repos\SpHelptextHelperExtension\SpHelptextHelperExtension\bin\Debug\Microsoft.Data.Tools.Sql.BatchParser.pdb" />
+			</Component>
+			<Component Id="cmp97FDE6267956EE357A52A02B8BD6EEAE" Guid="{2DB1EFA2-2EE3-49AD-802E-C9AA2AB99967}">
+				<File Id="fil0B59BEBBFDECFB7055916EB35AC03A5E" KeyPath="yes" Source="C:\Users\Owner\source\repos\SpHelptextHelperExtension\SpHelptextHelperExtension\bin\Debug\Microsoft.ExceptionMessageBox.dll" />
+			</Component>
+			<Component Id="cmpB09204496A1AFE76506FEB8B660ECB46" Guid="{0B8E0DD9-3A72-4591-82C0-AB737C893A64}">
+				<File Id="fil40CD76F4359E0E5CFD2AFF23877F7938" KeyPath="yes" Source="C:\Users\Owner\source\repos\SpHelptextHelperExtension\SpHelptextHelperExtension\bin\Debug\Microsoft.Identity.Client.dll" />
+			</Component>
+			<Component Id="cmpCD6C5D4994E498035F49201F4046BD80" Guid="{8A28F228-FABD-4E93-994C-B4A6785FB2C6}">
+				<File Id="filCCC9EAFA9CD2CDBD2D961AF2012CED7B" KeyPath="yes" Source="C:\Users\Owner\source\repos\SpHelptextHelperExtension\SpHelptextHelperExtension\bin\Debug\Microsoft.Identity.Client.Extensions.Msal.dll" />
+			</Component>
+			<Component Id="cmp878F6AD04E38A21C0722D8873230ADBE" Guid="{1483CBA6-F3E0-4017-95BC-CA84F2A6C80C}">
+				<File Id="fil22BE0373B62DB3CFDDF22EECBD2631BF" KeyPath="yes" Source="C:\Users\Owner\source\repos\SpHelptextHelperExtension\SpHelptextHelperExtension\bin\Debug\Microsoft.IdentityModel.JsonWebTokens.dll" />
+			</Component>
+			<Component Id="cmp545078B27AFC039E6C25DBB6F7262F6D" Guid="{25714018-7C5F-4B4D-8C24-43120C76E10D}">
+				<File Id="fil749226320A6128E277AA6D75F22C0314" KeyPath="yes" Source="C:\Users\Owner\source\repos\SpHelptextHelperExtension\SpHelptextHelperExtension\bin\Debug\Microsoft.IdentityModel.Logging.dll" />
+			</Component>
+			<Component Id="cmpDAF798DC90D932CAC33179726F5E5AE4" Guid="{DB33A80D-291F-4082-9E45-84AB09610A11}">
+				<File Id="filE803AE07AC7D21022D864F4C14CB1BBC" KeyPath="yes" Source="C:\Users\Owner\source\repos\SpHelptextHelperExtension\SpHelptextHelperExtension\bin\Debug\Microsoft.IdentityModel.Protocols.dll" />
+			</Component>
+			<Component Id="cmpCAEA514B8A52CDA2098D11B3D01806BB" Guid="{BFFD570C-00BA-4A2C-80CA-E50FD80E1204}">
+				<File Id="filCD031A880CA5D03578C31338067F578D" KeyPath="yes" Source="C:\Users\Owner\source\repos\SpHelptextHelperExtension\SpHelptextHelperExtension\bin\Debug\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll" />
+			</Component>
+			<Component Id="cmpC73D84B4F3AAEF461C16FE2E7ABF5F20" Guid="{C941DFAC-3BDB-4851-B336-1A06F3120135}">
+				<File Id="fil54C03A8B9D39256EDDB03E45EBDCD552" KeyPath="yes" Source="C:\Users\Owner\source\repos\SpHelptextHelperExtension\SpHelptextHelperExtension\bin\Debug\Microsoft.IdentityModel.Tokens.dll" />
+			</Component>
+			<Component Id="cmp4039BD0E32057B5C074BB049A81E8210" Guid="{5AA3286C-56E9-415F-8EA2-E1658273A696}">
+				<File Id="filEF27C17BD136A5C884F7E72EC34E8282" KeyPath="yes" Source="C:\Users\Owner\source\repos\SpHelptextHelperExtension\SpHelptextHelperExtension\bin\Debug\Microsoft.NetEnterpriseServers.ExceptionMessageBox.dll" />
+			</Component>
+			<Component Id="cmpCDD1018DB4C5AF0B9D80050E843EA95F" Guid="{84E6A42C-197D-4A17-A8AA-4C3DEB856D47}">
+				<File Id="filFBA3E7914106169EF4DD4A72D9C4569E" KeyPath="yes" Source="C:\Users\Owner\source\repos\SpHelptextHelperExtension\SpHelptextHelperExtension\bin\Debug\Microsoft.ReportViewer.Common.dll" />
+			</Component>
+			<Component Id="cmp76844282680C668B5CDAB79268135E15" Guid="{EE6F0E9B-4593-4C39-BAB8-45074841B60D}">
+				<File Id="filEE2FB531862DE7C9640E96CD1672E58C" KeyPath="yes" Source="C:\Users\Owner\source\repos\SpHelptextHelperExtension\SpHelptextHelperExtension\bin\Debug\Microsoft.ReportViewer.DataVisualization.dll" />
+			</Component>
+			<Component Id="cmp068FD429211099E3BB23B1C447A3F69D" Guid="{935CA4E7-728C-463B-800D-55514054BDBB}">
+				<File Id="fil8D7B389494757E595F75419BF597AFDB" KeyPath="yes" Source="C:\Users\Owner\source\repos\SpHelptextHelperExtension\SpHelptextHelperExtension\bin\Debug\Microsoft.ReportViewer.ProcessingObjectModel.dll" />
+			</Component>
+			<Component Id="cmp9647793AA24AA9803B44B06C332AC6BD" Guid="{59779B9C-516E-45DB-BF15-7FA8EE8678D6}">
+				<File Id="fil570E8E4878E8FE16C8DF50BD5FE92D98" KeyPath="yes" Source="C:\Users\Owner\source\repos\SpHelptextHelperExtension\SpHelptextHelperExtension\bin\Debug\Microsoft.ReportViewer.WinForms.dll" />
+			</Component>
+			<Component Id="cmp4BD0E6331B6EB5AC57724223723F6544" Guid="{2E9C2E1E-9C57-478E-AE17-C5A23A8E0AA6}">
+				<File Id="fil426F1F5AC30F8A27B7B7E0DBA41A6F49" KeyPath="yes" Source="C:\Users\Owner\source\repos\SpHelptextHelperExtension\SpHelptextHelperExtension\bin\Debug\Microsoft.SqlServer.Assessment.dll" />
+			</Component>
+			<Component Id="cmpBA5B7D85D3CF1A489522DF4CD0F1E59B" Guid="{655B3F25-471D-4A13-8DB4-151D08C59B82}">
+				<File Id="fil0041E5AB64F58D28A8BB870086616DC4" KeyPath="yes" Source="C:\Users\Owner\source\repos\SpHelptextHelperExtension\SpHelptextHelperExtension\bin\Debug\Microsoft.SqlServer.Assessment.Types.dll" />
+			</Component>
+			<Component Id="cmp877DD459F6ECB51CE0A250DDC977B1FC" Guid="{7BF43924-2EB7-4B8B-8F11-A9D70A71A5DD}">
+				<File Id="fil118E764150E332217A044AF30E9BC647" KeyPath="yes" Source="C:\Users\Owner\source\repos\SpHelptextHelperExtension\SpHelptextHelperExtension\bin\Debug\Microsoft.SqlServer.ConnectionInfo.dll" />
+			</Component>
+			<Component Id="cmp45E73E877F0A60C046DC55C4496FE6F0" Guid="{690CC6CA-08BD-4D28-AA54-85A6999EAD36}">
+				<File Id="fil0E5882082EDED3DFA995A133CEFA7189" KeyPath="yes" Source="C:\Users\Owner\source\repos\SpHelptextHelperExtension\SpHelptextHelperExtension\bin\Debug\Microsoft.SqlServer.ConnectionInfo.pdb" />
+			</Component>
+			<Component Id="cmp8F3A4CCCC0F0CF696CE2D87D61F9AA15" Guid="{DF8E6976-0E8F-424F-BAA8-641324B70FE0}">
+				<File Id="fil3477BA1336C4192FDAB1274C5BB0542A" KeyPath="yes" Source="C:\Users\Owner\source\repos\SpHelptextHelperExtension\SpHelptextHelperExtension\bin\Debug\Microsoft.SqlServer.Diagnostics.STrace.dll" />
+			</Component>
+			<Component Id="cmp68D9E52C675D1EB8E64162C8D72DF68D" Guid="{BDDB04A9-5782-4C3E-85EE-AC351887EEF5}">
+				<File Id="fil0EC8BA2740990E0F02A081D16B0BE82A" KeyPath="yes" Source="C:\Users\Owner\source\repos\SpHelptextHelperExtension\SpHelptextHelperExtension\bin\Debug\Microsoft.SqlServer.Dmf.Common.dll" />
+			</Component>
+			<Component Id="cmp38986529846B564D9EAEA5B1F3743628" Guid="{304940E5-7297-49A1-8907-AF105FF204B8}">
+				<File Id="fil240C24A6F3A306C2596292B37A43C899" KeyPath="yes" Source="C:\Users\Owner\source\repos\SpHelptextHelperExtension\SpHelptextHelperExtension\bin\Debug\Microsoft.SqlServer.Dmf.Common.pdb" />
+			</Component>
+			<Component Id="cmp1BDEC1439FE3605526AF472A46370DD2" Guid="{258C97F7-7736-4AE9-A638-C1190501BC05}">
+				<File Id="fil5C0F85D8FF543E3941EAA04AA72764C9" KeyPath="yes" Source="C:\Users\Owner\source\repos\SpHelptextHelperExtension\SpHelptextHelperExtension\bin\Debug\Microsoft.SqlServer.Dmf.dll" />
+			</Component>
+			<Component Id="cmp416F53E531C4C785BE8DBE0D7DF866EE" Guid="{B10FC422-26C5-4E30-ACEB-B73CBBF7E31D}">
+				<File Id="filA2C8A1CADEF097004AD6FD7CD5C0F135" KeyPath="yes" Source="C:\Users\Owner\source\repos\SpHelptextHelperExtension\SpHelptextHelperExtension\bin\Debug\Microsoft.SqlServer.Dmf.pdb" />
+			</Component>
+			<Component Id="cmp16776EB232468EF9E9AEA493558E301C" Guid="{01EE7D95-AD24-4A10-8EEF-5C1685A1C791}">
+				<File Id="fil5377210397135681F1DB64F89F62D033" KeyPath="yes" Source="C:\Users\Owner\source\repos\SpHelptextHelperExtension\SpHelptextHelperExtension\bin\Debug\Microsoft.SqlServer.GridControl.dll" />
+			</Component>
+			<Component Id="cmp01A24CBA6024EB94FB5A9CE8A09AC33F" Guid="{7FA30973-E4DA-409B-A847-B087E44048BE}">
+				<File Id="fil463E72489526CE7CC5A1148475522F03" KeyPath="yes" Source="C:\Users\Owner\source\repos\SpHelptextHelperExtension\SpHelptextHelperExtension\bin\Debug\Microsoft.SqlServer.Management.Assessment.dll" />
+			</Component>
+			<Component Id="cmpD9F752AA575C7D9DF76381AD15F7C9F0" Guid="{D5580864-028E-4A3E-B6ED-F91B8A6200EF}">
+				<File Id="fil215632A7359FAEB88F7FE436450F279E" KeyPath="yes" Source="C:\Users\Owner\source\repos\SpHelptextHelperExtension\SpHelptextHelperExtension\bin\Debug\Microsoft.SqlServer.Management.Assessment.pdb" />
+			</Component>
+			<Component Id="cmp1A0D21E82B9EA5AEA05C568E69514C74" Guid="{83C4836C-CC26-4CAD-9F09-3FFA0336B8A9}">
+				<File Id="fil80C71B051C4AE1212D9F913626443D98" KeyPath="yes" Source="C:\Users\Owner\source\repos\SpHelptextHelperExtension\SpHelptextHelperExtension\bin\Debug\Microsoft.SqlServer.Management.Collector.dll" />
+			</Component>
+			<Component Id="cmpA0C581F0D7674B42F76E6B09DEF5F5B5" Guid="{A894246B-8553-445E-9AF3-857C9CEC58E2}">
+				<File Id="filCF7C2F819CEEDC9191689CD9D8723DDA" KeyPath="yes" Source="C:\Users\Owner\source\repos\SpHelptextHelperExtension\SpHelptextHelperExtension\bin\Debug\Microsoft.SqlServer.Management.Collector.pdb" />
+			</Component>
+			<Component Id="cmpD8590BF444652578A57D9EAFA062C69E" Guid="{97D67411-149C-4725-ABB8-F9D61A433E8E}">
+				<File Id="filEF0E227802F9AA182BB5A96C6576468E" KeyPath="yes" Source="C:\Users\Owner\source\repos\SpHelptextHelperExtension\SpHelptextHelperExtension\bin\Debug\Microsoft.SqlServer.Management.CollectorEnum.dll" />
+			</Component>
+			<Component Id="cmp61FABB578167AC6C11928E338CF2F915" Guid="{036E03E2-E11F-4EF5-81BB-C4F6A3EE066D}">
+				<File Id="filE355369814ACD396D14B828532E8932B" KeyPath="yes" Source="C:\Users\Owner\source\repos\SpHelptextHelperExtension\SpHelptextHelperExtension\bin\Debug\Microsoft.SqlServer.Management.CollectorEnum.pdb" />
+			</Component>
+			<Component Id="cmp152AAC66F7691E3D4FBCF9245772FE90" Guid="{150A5B40-C16B-43C3-926B-382CFD3021E2}">
+				<File Id="fil85EE1D743AB97E4B6F21F64F3106FC41" KeyPath="yes" Source="C:\Users\Owner\source\repos\SpHelptextHelperExtension\SpHelptextHelperExtension\bin\Debug\Microsoft.SqlServer.Management.Controls.dll" />
+			</Component>
+			<Component Id="cmpD245F60251B89C209F2B83ABB4649AF6" Guid="{6F4A8549-7AAB-4C76-9DB4-E6DD2E43FE44}">
+				<File Id="filAC6D4717E61B0E72552C2067F1CEB493" KeyPath="yes" Source="C:\Users\Owner\source\repos\SpHelptextHelperExtension\SpHelptextHelperExtension\bin\Debug\Microsoft.SqlServer.Management.HadrData.dll" />
+			</Component>
+			<Component Id="cmp5AA89F9B9D25C524C77B8DFD608563CB" Guid="{79271E33-E95B-455C-A019-44CB558912DB}">
+				<File Id="filA9D39EDD5CA915ACDA84B6678018FB5E" KeyPath="yes" Source="C:\Users\Owner\source\repos\SpHelptextHelperExtension\SpHelptextHelperExtension\bin\Debug\Microsoft.SqlServer.Management.HadrData.pdb" />
+			</Component>
+			<Component Id="cmp3862BFC4F245C51217CF844E6A7EF069" Guid="{23AF1263-E5CD-40FB-AF6B-39E9F88DF937}">
+				<File Id="fil5FF613B20214B221E4197B797467660C" KeyPath="yes" Source="C:\Users\Owner\source\repos\SpHelptextHelperExtension\SpHelptextHelperExtension\bin\Debug\Microsoft.SqlServer.Management.HadrModel.dll" />
+			</Component>
+			<Component Id="cmpC23BF44DD08173CC823B1A4D4EE6984D" Guid="{C5A70491-821E-4AB6-A772-3705743B287B}">
+				<File Id="filAB69DF3E4A8733275EB10715F43DD6AB" KeyPath="yes" Source="C:\Users\Owner\source\repos\SpHelptextHelperExtension\SpHelptextHelperExtension\bin\Debug\Microsoft.SqlServer.Management.HadrModel.pdb" />
+			</Component>
+			<Component Id="cmp021251C7C48BD7B10EF06004B5925571" Guid="{DA2A4DE3-FCDB-4790-B4B7-F1314DE4994B}">
+				<File Id="fil37D6384C2952337B8EAC968E445A3F0B" KeyPath="yes" Source="C:\Users\Owner\source\repos\SpHelptextHelperExtension\SpHelptextHelperExtension\bin\Debug\Microsoft.SqlServer.Management.HelpViewer.dll" />
+			</Component>
+			<Component Id="cmp8C29F71E2C9402C658BA565083190C47" Guid="{F2B13685-C43F-440E-8E56-44F8E8C9B4EF}">
+				<File Id="fil0732272D7AB29CA6ADE0D6E43CFD6507" KeyPath="yes" Source="C:\Users\Owner\source\repos\SpHelptextHelperExtension\SpHelptextHelperExtension\bin\Debug\Microsoft.SqlServer.Management.RegisteredServers.dll" />
+			</Component>
+			<Component Id="cmpFA73638223EA50C8C9D7BF60D16C7953" Guid="{AB147B20-556C-46FE-A1C2-59963CC87512}">
+				<File Id="filCC54AA50E78AADC92992BBC3570218BD" KeyPath="yes" Source="C:\Users\Owner\source\repos\SpHelptextHelperExtension\SpHelptextHelperExtension\bin\Debug\Microsoft.SqlServer.Management.RegisteredServers.pdb" />
+			</Component>
+			<Component Id="cmpC49E26CCD832C8F6305E29B431DB72A1" Guid="{0E1F5FA3-CF88-4891-BB94-9DFE22C94E87}">
+				<File Id="fil2FCDAEB23C3BB75A54557F7425B896DA" KeyPath="yes" Source="C:\Users\Owner\source\repos\SpHelptextHelperExtension\SpHelptextHelperExtension\bin\Debug\Microsoft.SqlServer.Management.Sdk.Sfc.dll" />
+			</Component>
+			<Component Id="cmp9ADB3C069744CBED9D331F2E33E8FC93" Guid="{04226AFC-61F2-47C4-B18A-3EDB88E6A9DA}">
+				<File Id="fil9E754DA2A3EC4F447523A189D487B9D2" KeyPath="yes" Source="C:\Users\Owner\source\repos\SpHelptextHelperExtension\SpHelptextHelperExtension\bin\Debug\Microsoft.SqlServer.Management.Sdk.Sfc.pdb" />
+			</Component>
+			<Component Id="cmp10EEB8E26AF090625F6CCAAF913A399B" Guid="{01EEF9A4-1AFB-4611-A67F-64FFE769BE9D}">
+				<File Id="fil2D1FD68B30C5B6185555D578C7A5A886" KeyPath="yes" Source="C:\Users\Owner\source\repos\SpHelptextHelperExtension\SpHelptextHelperExtension\bin\Debug\Microsoft.SqlServer.Management.SDK.SqlStudio.dll" />
+			</Component>
+			<Component Id="cmp7820C29C69D59F1AF22D5218BA5165F8" Guid="{5356375D-2A81-483D-A01A-B095949BA195}">
+				<File Id="fil8F7FD7140D9D0B7D02002F7C8CE21920" KeyPath="yes" Source="C:\Users\Owner\source\repos\SpHelptextHelperExtension\SpHelptextHelperExtension\bin\Debug\Microsoft.SqlServer.Management.SqlScriptPublish.dll" />
+			</Component>
+			<Component Id="cmp49B8C64DEDACE1189EEDBB10CBEF3B14" Guid="{1CDA8606-37AC-474A-BFFD-84004F0B54EE}">
+				<File Id="fil100EDC71861FBDC949430F694D19B5D6" KeyPath="yes" Source="C:\Users\Owner\source\repos\SpHelptextHelperExtension\SpHelptextHelperExtension\bin\Debug\Microsoft.SqlServer.Management.SqlScriptPublish.pdb" />
+			</Component>
+			<Component Id="cmpC0FCD435DBBE91CB163F33A2D34FECDF" Guid="{EF2D0E51-49B0-4846-A82D-411D8F0E257B}">
+				<File Id="filB80BCB976278AEC891F1F6E03B0191A9" KeyPath="yes" Source="C:\Users\Owner\source\repos\SpHelptextHelperExtension\SpHelptextHelperExtension\bin\Debug\Microsoft.SqlServer.Management.UserSettings.dll" />
+			</Component>
+			<Component Id="cmp8A98096CCB352016E25194E5B450C541" Guid="{71897D6D-9A19-469B-9291-B0B302CF0756}">
+				<File Id="fil4BB2251B35EC83A9B526FC2E943F2B27" KeyPath="yes" Source="C:\Users\Owner\source\repos\SpHelptextHelperExtension\SpHelptextHelperExtension\bin\Debug\Microsoft.SqlServer.Management.XEvent.dll" />
+			</Component>
+			<Component Id="cmp1055803A8A449E9B343B9C863437C474" Guid="{6B409C4A-D237-4153-A69C-C57D144F92BA}">
+				<File Id="fil9686146A35EFA250B31E501540B880DF" KeyPath="yes" Source="C:\Users\Owner\source\repos\SpHelptextHelperExtension\SpHelptextHelperExtension\bin\Debug\Microsoft.SqlServer.Management.XEvent.pdb" />
+			</Component>
+			<Component Id="cmp0019BBA3317F5A6EB7C5044643E750B9" Guid="{E0E13DBE-B841-4572-8605-C9FFD3DF3143}">
+				<File Id="fil0AB7C2EBD78EA57692101D8FDB44361B" KeyPath="yes" Source="C:\Users\Owner\source\repos\SpHelptextHelperExtension\SpHelptextHelperExtension\bin\Debug\Microsoft.SqlServer.Management.XEventDbScoped.dll" />
+			</Component>
+			<Component Id="cmpD796884B6CCA5518BDD528F76D9D9530" Guid="{9CE7A51E-A695-4BCB-B9DF-F1B8B441C82B}">
+				<File Id="filE5AC387F78AA0FEAC610E908A7CB75DA" KeyPath="yes" Source="C:\Users\Owner\source\repos\SpHelptextHelperExtension\SpHelptextHelperExtension\bin\Debug\Microsoft.SqlServer.Management.XEventDbScoped.pdb" />
+			</Component>
+			<Component Id="cmpF532E9586A51F6EDFBA72B221B87FC40" Guid="{B31D0D11-073C-4F13-9029-670E828F688D}">
+				<File Id="filA52B2E9DDC8D726B69212DF4E673805B" KeyPath="yes" Source="C:\Users\Owner\source\repos\SpHelptextHelperExtension\SpHelptextHelperExtension\bin\Debug\Microsoft.SqlServer.Management.XEventDbScopedEnum.dll" />
+			</Component>
+			<Component Id="cmp449A2A645575C654EA34BB7C5D6F9831" Guid="{8D0E6CE4-2BAE-46DF-B620-C3B377CB206A}">
+				<File Id="fil90472562B478AD73F693F8074A6A3275" KeyPath="yes" Source="C:\Users\Owner\source\repos\SpHelptextHelperExtension\SpHelptextHelperExtension\bin\Debug\Microsoft.SqlServer.Management.XEventDbScopedEnum.pdb" />
+			</Component>
+			<Component Id="cmpE7BDE4ACCAAB4AB7CC026A7A5454017D" Guid="{C6B69747-8993-4C34-8DF7-A11B35FA33E0}">
+				<File Id="fil5E687185B8CA70BCD4149670D14691C1" KeyPath="yes" Source="C:\Users\Owner\source\repos\SpHelptextHelperExtension\SpHelptextHelperExtension\bin\Debug\Microsoft.SqlServer.Management.XEventEnum.dll" />
+			</Component>
+			<Component Id="cmpEAFD684A5C316310BB56373B9DC6042E" Guid="{7C8F183B-FBB6-46C8-8CA7-E8C45B870442}">
+				<File Id="filAC7378D42EF69E52CFBAE449BFED0071" KeyPath="yes" Source="C:\Users\Owner\source\repos\SpHelptextHelperExtension\SpHelptextHelperExtension\bin\Debug\Microsoft.SqlServer.Management.XEventEnum.pdb" />
+			</Component>
+			<Component Id="cmp3134EDB5004BC979CBB75D890B6EF1C6" Guid="{BEC075F3-AA02-4113-B5CD-13C8C7F21970}">
+				<File Id="fil6231F2D75E2541DE19994F600DA9D51F" KeyPath="yes" Source="C:\Users\Owner\source\repos\SpHelptextHelperExtension\SpHelptextHelperExtension\bin\Debug\Microsoft.SqlServer.PolicyEnum.dll" />
+			</Component>
+			<Component Id="cmp19CEF01FC6E1163F9A193B715DDDF3AF" Guid="{5981F41A-BB18-4955-B3CD-957166986024}">
+				<File Id="fil893FF33825DC10504E4F41D303EE5A26" KeyPath="yes" Source="C:\Users\Owner\source\repos\SpHelptextHelperExtension\SpHelptextHelperExtension\bin\Debug\Microsoft.SqlServer.PolicyEnum.pdb" />
+			</Component>
+			<Component Id="cmp5091BC70A621FE6B523E40DE2EEA96E3" Guid="{FBF02349-6D37-4A88-9340-674B8214294E}">
+				<File Id="fil897D999C18D0CAECDD2DF66DA3AA2B6D" KeyPath="yes" Source="C:\Users\Owner\source\repos\SpHelptextHelperExtension\SpHelptextHelperExtension\bin\Debug\Microsoft.SqlServer.RegSvrEnum.dll" />
+			</Component>
+			<Component Id="cmp26D7CE5C2F5E9E5AF2023C7DE044D636" Guid="{C5570646-1729-41C4-B7F1-D59CBA9370FA}">
+				<File Id="fil6C55A6582DA903382F25EB532C0380D3" KeyPath="yes" Source="C:\Users\Owner\source\repos\SpHelptextHelperExtension\SpHelptextHelperExtension\bin\Debug\Microsoft.SqlServer.RegSvrEnum.pdb" />
+			</Component>
+			<Component Id="cmpF42559DDA81214CD590F3D98F67B19CE" Guid="{0B27DCE9-83F4-42E1-A942-8FE152A9C377}">
+				<File Id="fil94D35C9EDDC417568DB255E2513F3492" KeyPath="yes" Source="C:\Users\Owner\source\repos\SpHelptextHelperExtension\SpHelptextHelperExtension\bin\Debug\Microsoft.SqlServer.ServiceBrokerEnum.dll" />
+			</Component>
+			<Component Id="cmp406F95B0783C209647B2D579E45ACE53" Guid="{09489030-D3BD-4FBE-9365-E9441DFF58D5}">
+				<File Id="fil9AA262CC7AE213C8207716BA77AD9EC8" KeyPath="yes" Source="C:\Users\Owner\source\repos\SpHelptextHelperExtension\SpHelptextHelperExtension\bin\Debug\Microsoft.SqlServer.ServiceBrokerEnum.pdb" />
+			</Component>
+			<Component Id="cmpA9BD57A670F19B035155B5D530525FD2" Guid="{A057C08D-4A0B-46DF-A37A-982C7F73A74B}">
+				<File Id="fil05EA45E3F429569A9197152D49AE6B7E" KeyPath="yes" Source="C:\Users\Owner\source\repos\SpHelptextHelperExtension\SpHelptextHelperExtension\bin\Debug\Microsoft.SqlServer.Smo.dll" />
+			</Component>
+			<Component Id="cmp82C7245D0B0968A510D377BE72309255" Guid="{E173C0D2-7A98-4CF0-99EE-D93FD45FE8F2}">
+				<File Id="filF53ED917DB14B3C3D1E33BCC12AA1237" KeyPath="yes" Source="C:\Users\Owner\source\repos\SpHelptextHelperExtension\SpHelptextHelperExtension\bin\Debug\Microsoft.SqlServer.Smo.Notebook.dll" />
+			</Component>
+			<Component Id="cmp35CE845E11C0D51719B7CD28B40C9ECB" Guid="{402CD4F5-7AE5-4DB1-958F-5C7407F70658}">
+				<File Id="fil544EE2C374EA2E59B0A23CE414721CE4" KeyPath="yes" Source="C:\Users\Owner\source\repos\SpHelptextHelperExtension\SpHelptextHelperExtension\bin\Debug\Microsoft.SqlServer.Smo.Notebook.pdb" />
+			</Component>
+			<Component Id="cmpA034054DE398F9F4393138EEC53355BB" Guid="{821035C0-A54A-424D-8BBF-C287E41CAD6B}">
+				<File Id="fil453FD194C2BDED5A1795FCC1261DB0D1" KeyPath="yes" Source="C:\Users\Owner\source\repos\SpHelptextHelperExtension\SpHelptextHelperExtension\bin\Debug\Microsoft.SqlServer.Smo.pdb" />
+			</Component>
+			<Component Id="cmp73398DAEEDA25D73634E96370D311A70" Guid="{45C30ADE-89FB-40F8-AC0C-B62DF5C9932D}">
+				<File Id="fil89A830285246734F17E9173EF077ABA6" KeyPath="yes" Source="C:\Users\Owner\source\repos\SpHelptextHelperExtension\SpHelptextHelperExtension\bin\Debug\Microsoft.SqlServer.SmoExtended.dll" />
+			</Component>
+			<Component Id="cmpC352AB0F80B7FD2BF878B55D2A7B51CA" Guid="{7A8A386D-637A-4686-AE7F-180A2B09B2F6}">
+				<File Id="filD71F2BD8305C8EC8DE232466206940D9" KeyPath="yes" Source="C:\Users\Owner\source\repos\SpHelptextHelperExtension\SpHelptextHelperExtension\bin\Debug\Microsoft.SqlServer.SmoExtended.pdb" />
+			</Component>
+			<Component Id="cmp8C15E2CFF2096BD3C8BCA653CFD9A819" Guid="{92DF81E3-A139-4511-A6F8-077D01810AB0}">
+				<File Id="filB52D49EF4F8F057E4392736AED8ABB39" KeyPath="yes" Source="C:\Users\Owner\source\repos\SpHelptextHelperExtension\SpHelptextHelperExtension\bin\Debug\Microsoft.SqlServer.SqlClrProvider.dll" />
+			</Component>
+			<Component Id="cmpCB499C84B4E48F0255B101579D3E68C5" Guid="{3B92608F-1142-4D0E-B0CA-00EFA9EC26DB}">
+				<File Id="filA2579BE353DF3C51F36A2D789B5B18C4" KeyPath="yes" Source="C:\Users\Owner\source\repos\SpHelptextHelperExtension\SpHelptextHelperExtension\bin\Debug\Microsoft.SqlServer.SqlClrProvider.pdb" />
+			</Component>
+			<Component Id="cmp641AE96FC702A97AD5EB73D0FAD11A64" Guid="{15BE7B47-21DD-4465-B657-BD9CFC5F1DF7}">
+				<File Id="fil1FDBB303AE5A4AEBA86E0BE050A31A67" KeyPath="yes" Source="C:\Users\Owner\source\repos\SpHelptextHelperExtension\SpHelptextHelperExtension\bin\Debug\Microsoft.SqlServer.SqlEnum.dll" />
+			</Component>
+			<Component Id="cmp13ABFE67E9A0DBC1E27FC34B3A4A81D9" Guid="{1D3A2270-219C-4772-92F6-60115527EAD4}">
+				<File Id="filFA1056FF0785F59E73E61788A8697FD9" KeyPath="yes" Source="C:\Users\Owner\source\repos\SpHelptextHelperExtension\SpHelptextHelperExtension\bin\Debug\Microsoft.SqlServer.SqlEnum.pdb" />
+			</Component>
+			<Component Id="cmp90C9EF416E6128904E108DA8F93327AD" Guid="{35ED80FB-5021-4D82-A937-11EA8485D78D}">
+				<File Id="filB77A94F0AFD685697F919937F8AE0A07" KeyPath="yes" Source="C:\Users\Owner\source\repos\SpHelptextHelperExtension\SpHelptextHelperExtension\bin\Debug\Microsoft.SqlServer.SqlTDiagM.dll" />
+			</Component>
+			<Component Id="cmp7EA6E5EFBBBEA5E1B419793139F33D4F" Guid="{D2F0B4FA-3A78-4352-8988-A19DEC8C5CCB}">
+				<File Id="fil793DD1FC3A566515160C9B5C28229592" KeyPath="yes" Source="C:\Users\Owner\source\repos\SpHelptextHelperExtension\SpHelptextHelperExtension\bin\Debug\Microsoft.SqlServer.SqlWmiManagement.dll" />
+			</Component>
+			<Component Id="cmp4780D9B35990A6DA24D39C636D294781" Guid="{E311C1ED-7474-4A81-BCA2-92782A519105}">
+				<File Id="fil7A34BE1B8D6ACCF3483FCF55B77BE959" KeyPath="yes" Source="C:\Users\Owner\source\repos\SpHelptextHelperExtension\SpHelptextHelperExtension\bin\Debug\Microsoft.SqlServer.SqlWmiManagement.pdb" />
+			</Component>
+			<Component Id="cmp3CD48A24C4899628CC9F88671E6C0DCE" Guid="{BA7CE3F4-0B8D-49D9-BCEC-24E2ACF073E5}">
+				<File Id="filC470317D7234C33778BD66775FFF85DC" KeyPath="yes" Source="C:\Users\Owner\source\repos\SpHelptextHelperExtension\SpHelptextHelperExtension\bin\Debug\Microsoft.SqlServer.SString.dll" />
+			</Component>
+			<Component Id="cmpB305CC29C0BFCB1384CA9F6B9017784C" Guid="{04A40AF7-02FB-4FFA-BD1E-AB4BA168E126}">
+				<File Id="fil72C2F47D0D91D5D9416FFFB9A00F5AD6" KeyPath="yes" Source="C:\Users\Owner\source\repos\SpHelptextHelperExtension\SpHelptextHelperExtension\bin\Debug\Microsoft.SqlServer.TransactSql.ScriptDom.dll" />
+			</Component>
+			<Component Id="cmp7A1879377AF4BCEF12C1C48A5EE82603" Guid="{68E1D5BD-EE05-4EB9-A33C-FDAB9355DDE3}">
+				<File Id="filA5706E940C2330A5671D7460ED74710E" KeyPath="yes" Source="C:\Users\Owner\source\repos\SpHelptextHelperExtension\SpHelptextHelperExtension\bin\Debug\Microsoft.SqlServer.WmiEnum.dll" />
+			</Component>
+			<Component Id="cmp2FEF3E7E54BBE2482457B81AE0974319" Guid="{F75B361F-97D0-42D8-8524-7424F07E0318}">
+				<File Id="fil33C8B9211585D40CDBCB552FF6BA9253" KeyPath="yes" Source="C:\Users\Owner\source\repos\SpHelptextHelperExtension\SpHelptextHelperExtension\bin\Debug\Microsoft.SqlServer.WmiEnum.pdb" />
+			</Component>
+			<Component Id="cmpD5C8C4D11D314F34BAC718B9BC26FC6A" Guid="{5DB78D27-0F2A-4422-9410-AAB3E784B9B2}">
+				<File Id="fil20F3B1D38168FD462067D8C9103BA528" KeyPath="yes" Source="C:\Users\Owner\source\repos\SpHelptextHelperExtension\SpHelptextHelperExtension\bin\Debug\Microsoft.SqlTools.Telemetry.Interop.dll" />
+			</Component>
+			<Component Id="cmp8BA8DBBB652F717AA082B56423FE533E" Guid="{89707494-ABEE-42AC-8D24-F0EB2E1809C9}">
+				<File Id="filDA357115E4C8FED5A8D29D457B4908B2" KeyPath="yes" Source="C:\Users\Owner\source\repos\SpHelptextHelperExtension\SpHelptextHelperExtension\bin\Debug\Microsoft.Web.WebView2.Core.dll" />
+			</Component>
+			<Component Id="cmpBB9926F0B1352B6B810FB3DD98328701" Guid="{749F0C04-8078-4A98-8CF1-E02C89165708}">
+				<File Id="fil5072F329E3D4CF7BB86D01A5DA52EFE7" KeyPath="yes" Source="C:\Users\Owner\source\repos\SpHelptextHelperExtension\SpHelptextHelperExtension\bin\Debug\Microsoft.Web.WebView2.WinForms.dll" />
+			</Component>
+			<Component Id="cmp40BBD8506EDEFA8FD1A6019ECBF40253" Guid="{4822AAED-DB31-4A33-94E5-2BE4FAA9B3AA}">
+				<File Id="filF47EB990DBE59546AA8A342AAB9D10F2" KeyPath="yes" Source="C:\Users\Owner\source\repos\SpHelptextHelperExtension\SpHelptextHelperExtension\bin\Debug\Microsoft.Web.WebView2.Wpf.dll" />
+			</Component>
+			<Component Id="cmp4745764A420C9485BFD2DFC844582033" Guid="{B1FDFC44-AB72-4BA9-BB61-92360BFF4A9A}">
+				<File Id="fil1E15B579C406041E9F5C28C3495E4B86" KeyPath="yes" Source="C:\Users\Owner\source\repos\SpHelptextHelperExtension\SpHelptextHelperExtension\bin\Debug\Newtonsoft.Json.dll" />
+			</Component>
+			<Component Id="cmpDD572173385F9F4EB82E5C284F09B938" Guid="{B433E4B1-20CF-4937-B932-FD8EE5F63E4A}">
+				<File Id="fil1B3D84A5A2A572598FD5FE404FF08C3C" KeyPath="yes" Source="C:\Users\Owner\source\repos\SpHelptextHelperExtension\SpHelptextHelperExtension\bin\Debug\SqlPackageBase.dll" />
+			</Component>
+			<Component Id="cmp72F41CA562C377CED8CE1E62F6691DE1" Guid="{315A03AD-1A91-43E8-A67F-86FDE12D3C21}">
+				<File Id="fil600832BBDC654871177E99D81C6DA85F" KeyPath="yes" Source="C:\Users\Owner\source\repos\SpHelptextHelperExtension\SpHelptextHelperExtension\bin\Debug\SqlWorkbench.Interfaces.dll" />
+			</Component>
+			<Component Id="cmpCF06CF7A326D95E9B45FD466D8AFA203" Guid="{07C3C9CE-4334-4189-B37C-AD8E6C5071A5}">
+				<File Id="fil89FE9D13B52ACB5F48ECF489CEC94B26" KeyPath="yes" Source="C:\Users\Owner\source\repos\SpHelptextHelperExtension\SpHelptextHelperExtension\bin\Debug\SpHelptextHelperExtension.dll" />
+			</Component>
+			<Component Id="cmp4B8FBF8012747DEAADB5FC35BCA4BA0D" Guid="{30F20337-ED95-411B-BB33-6FE1F4039CED}">
+				<File Id="filCA5729166D98ECD925849829AD974BD2" KeyPath="yes" Source="C:\Users\Owner\source\repos\SpHelptextHelperExtension\SpHelptextHelperExtension\bin\Debug\SpHelptextHelperExtension.dll.config" />
+			</Component>
+			<Component Id="cmp051700165E39914973C70701F7326FB5" Guid="{EEBC9D4A-CB08-4F27-9DF0-E2FA78D03D63}">
+				<File Id="fil078B4A342CA8FA3728DB43AD0803248B" KeyPath="yes" Source="C:\Users\Owner\source\repos\SpHelptextHelperExtension\SpHelptextHelperExtension\bin\Debug\SpHelptextHelperExtension.pdb" />
+			</Component>
+			<Component Id="cmp7CF9E3AE1962E635189273A7FDA8F4D8" Guid="{4338DF4A-532B-4FA4-9441-EA5C574FBD16}">
+				<File Id="filFCC3DC808D0B942C84FFCE2E734F4FCA" KeyPath="yes" Source="C:\Users\Owner\source\repos\SpHelptextHelperExtension\SpHelptextHelperExtension\bin\Debug\SpHelptextHelperExtension.pkgdef" />
+			</Component>
+			<Component Id="cmp968898F0F0D0AF94FB18EC01EC92737B" Guid="{3D595707-284D-4A7E-921E-E8965A778EAB}">
+				<File Id="fil89BD82C76974F8AB45097A649DEB471D" KeyPath="yes" Source="C:\Users\Owner\source\repos\SpHelptextHelperExtension\SpHelptextHelperExtension\bin\Debug\SpHelptextHelperExtension.vsix" />
+			</Component>
+			<Component Id="cmp55F0C3AB0E266B6D19FF93D0B4094092" Guid="{1A391C86-D541-4F81-880F-99D1C88EF1C0}">
+				<File Id="fil7CB38F3D47368FB7897D5F6C495C62F7" KeyPath="yes" Source="C:\Users\Owner\source\repos\SpHelptextHelperExtension\SpHelptextHelperExtension\bin\Debug\System.Buffers.dll" />
+			</Component>
+			<Component Id="cmp8A5F89CB51B1996D52DCF6FF4D263E92" Guid="{F67AB075-1E77-415A-8D6E-E9A3CF40D561}">
+				<File Id="fil17D8091FFF59B848D18D7F003B0DEA3F" KeyPath="yes" Source="C:\Users\Owner\source\repos\SpHelptextHelperExtension\SpHelptextHelperExtension\bin\Debug\System.Configuration.ConfigurationManager.dll" />
+			</Component>
+			<Component Id="cmp982CD9E1A3E30C92D69D5FBD5DDF9A54" Guid="{0714ED02-A39B-4742-A807-3FCB4E4EAFCB}">
+				<File Id="fil01F9E879E0E345F420508D16F1FA8305" KeyPath="yes" Source="C:\Users\Owner\source\repos\SpHelptextHelperExtension\SpHelptextHelperExtension\bin\Debug\System.Diagnostics.DiagnosticSource.dll" />
+			</Component>
+			<Component Id="cmp8DE244841BD8180C6DAF63CBC4DEFE07" Guid="{17DD1E9F-C3E9-490D-BD05-58001C889B1A}">
+				<File Id="fil654CAB51D3D097A7FDDC5055F7D07502" KeyPath="yes" Source="C:\Users\Owner\source\repos\SpHelptextHelperExtension\SpHelptextHelperExtension\bin\Debug\System.IdentityModel.Tokens.Jwt.dll" />
+			</Component>
+			<Component Id="cmp11946DE06CFF058ADB68C6AC31E4CE05" Guid="{CA152C3D-177B-4587-8588-AA4C3778B1C1}">
+				<File Id="filF6586E1BEE64AEFD271700551EE874B9" KeyPath="yes" Source="C:\Users\Owner\source\repos\SpHelptextHelperExtension\SpHelptextHelperExtension\bin\Debug\System.Memory.Data.dll" />
+			</Component>
+			<Component Id="cmp3520CD4B18D5878036CEED849FC8B480" Guid="{43C3B7D4-F724-4683-9C09-BD3DBCEB6725}">
+				<File Id="filA3E4BF677A8016701E345D68BDF5DDBD" KeyPath="yes" Source="C:\Users\Owner\source\repos\SpHelptextHelperExtension\SpHelptextHelperExtension\bin\Debug\System.Memory.dll" />
+			</Component>
+			<Component Id="cmp3D80D420E9C202C7F9CFA932F108C727" Guid="{FE67B0CF-BDE5-4961-914E-4203E3496809}">
+				<File Id="filFE6A9CBF0468BFE9DF5DA018431924E6" KeyPath="yes" Source="C:\Users\Owner\source\repos\SpHelptextHelperExtension\SpHelptextHelperExtension\bin\Debug\System.Numerics.Vectors.dll" />
+			</Component>
+			<Component Id="cmp9D4B8A7EAC1F5BF3CC1EB3DA16817DF6" Guid="{541D04C8-0083-4449-8BE6-38E2F0425138}">
+				<File Id="fil008D577693CDE5E1F5883AB358CBFB27" KeyPath="yes" Source="C:\Users\Owner\source\repos\SpHelptextHelperExtension\SpHelptextHelperExtension\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll" />
+			</Component>
+			<Component Id="cmp3BFC0E5FA4FBA4950EA582534CC9811F" Guid="{22D1E057-9C2A-4674-8A6C-4FFCA8D70973}">
+				<File Id="filEAE9397BBD7747A258E2F78D9B37EB11" KeyPath="yes" Source="C:\Users\Owner\source\repos\SpHelptextHelperExtension\SpHelptextHelperExtension\bin\Debug\System.Security.AccessControl.dll" />
+			</Component>
+			<Component Id="cmpAB8D193E1D0A075544CFA358AC3C5E6B" Guid="{DF02FF0E-EF1A-44AA-89F5-F63A42F038EA}">
+				<File Id="fil02ABCE239FA8060C7F1C0485E37DD7E3" KeyPath="yes" Source="C:\Users\Owner\source\repos\SpHelptextHelperExtension\SpHelptextHelperExtension\bin\Debug\System.Security.Cryptography.ProtectedData.dll" />
+			</Component>
+			<Component Id="cmp869292A7B9405F10EBE3FF9DA521F931" Guid="{F22BE044-7678-41F2-8537-7A6A094F5C21}">
+				<File Id="fil5C04126997F58B7F164697D1E2C19488" KeyPath="yes" Source="C:\Users\Owner\source\repos\SpHelptextHelperExtension\SpHelptextHelperExtension\bin\Debug\System.Security.Permissions.dll" />
+			</Component>
+			<Component Id="cmp510B6E1A6AC67BAD63B04422BE732AA5" Guid="{1D0F7B0C-DD69-4EBE-8542-9BCD9182187E}">
+				<File Id="fil7458139CBAE2863761813C3C60423EB2" KeyPath="yes" Source="C:\Users\Owner\source\repos\SpHelptextHelperExtension\SpHelptextHelperExtension\bin\Debug\System.Security.Principal.Windows.dll" />
+			</Component>
+			<Component Id="cmpBE4F0F0F4E3C454C54F45E5EC5F3D80F" Guid="{AD318E2A-5355-4438-83CA-A573223856B2}">
+				<File Id="filBF7116282439062D874D9C4491EF5C2F" KeyPath="yes" Source="C:\Users\Owner\source\repos\SpHelptextHelperExtension\SpHelptextHelperExtension\bin\Debug\System.Text.Encodings.Web.dll" />
+			</Component>
+			<Component Id="cmp8E25725254B0BA1A2A3D4B3CD4869EBD" Guid="{AEBAFEC3-499C-42D5-8B62-82705A0855A1}">
+				<File Id="filDA0CB082BCD32B6A2F187C6149819F7A" KeyPath="yes" Source="C:\Users\Owner\source\repos\SpHelptextHelperExtension\SpHelptextHelperExtension\bin\Debug\System.Text.Json.dll" />
+			</Component>
+			<Component Id="cmp0373E6CBAF55F6F38B56629709B7E328" Guid="{EDA9243E-A1E7-49EE-8F7D-8CB0B943A503}">
+				<File Id="fil1326C13E440DEC67F3E4C626E6366D76" KeyPath="yes" Source="C:\Users\Owner\source\repos\SpHelptextHelperExtension\SpHelptextHelperExtension\bin\Debug\System.Threading.Tasks.Extensions.dll" />
+			</Component>
+			<Component Id="cmp8985639D07C82E40DD1EF7F3F6360B0B" Guid="{DCFFE7A0-E498-4E77-8C64-38FF697001CA}">
+				<File Id="filB89CDF78839795996F1127DA85DA6681" KeyPath="yes" Source="C:\Users\Owner\source\repos\SpHelptextHelperExtension\SpHelptextHelperExtension\bin\Debug\System.ValueTuple.dll" />
+			</Component>
+			<Directory Id="dirEE063597981AD0CF45A23C2A55817381" Name="de">
+				<Component Id="cmpE404DDF0FCCF15FCFF71B1E60245E17B" Guid="{B58BE045-1EAA-4B06-9E74-0ABA71CF52EB}">
+					<File Id="filC8721F6703D2BF4DF7D718061AA3AF19" KeyPath="yes" Source="C:\Users\Owner\source\repos\SpHelptextHelperExtension\SpHelptextHelperExtension\bin\Debug\de\Microsoft.Data.SqlClient.resources.dll" />
+				</Component>
+			</Directory>
+			<Directory Id="dir34F24EFAFA56071D006CCE7859E2C9EB" Name="es">
+				<Component Id="cmp953681BD83A7E6901C42E864FBBAAA39" Guid="{19B871E7-2E03-4E7F-A0FC-FA09695F5F78}">
+					<File Id="filAD4E28F0C3E7034E33BCFC1B51FD409B" KeyPath="yes" Source="C:\Users\Owner\source\repos\SpHelptextHelperExtension\SpHelptextHelperExtension\bin\Debug\es\Microsoft.Data.SqlClient.resources.dll" />
+				</Component>
+			</Directory>
+			<Directory Id="dir08A95447706641AEAEDEC6E8AA9C777C" Name="fr">
+				<Component Id="cmpAA5218D9FBCAEE5F5E085D3AFAAD44F4" Guid="{0AFFB240-5326-47A5-AD1D-C83AC30EE00C}">
+					<File Id="filBD2F168E5ABF808085DC8A4E702C337F" KeyPath="yes" Source="C:\Users\Owner\source\repos\SpHelptextHelperExtension\SpHelptextHelperExtension\bin\Debug\fr\Microsoft.Data.SqlClient.resources.dll" />
+				</Component>
+			</Directory>
+			<Directory Id="dir8127E7234128CEA7B2B0C64D1F3A6E2B" Name="it">
+				<Component Id="cmpC10F730B327B21A4C20D2F59B44E8A2A" Guid="{3C5F723B-59C1-46B6-A530-FCAE96FD8C46}">
+					<File Id="fil8C823555DFE019F6ED212ADA0104C4D4" KeyPath="yes" Source="C:\Users\Owner\source\repos\SpHelptextHelperExtension\SpHelptextHelperExtension\bin\Debug\it\Microsoft.Data.SqlClient.resources.dll" />
+				</Component>
+			</Directory>
+			<Directory Id="dir5430FE07F315F550C9085266709E5495" Name="ja">
+				<Component Id="cmpD63881DD12A711C672306183B66F81E8" Guid="{9F37DAC9-0CA8-4FA1-8858-B23264365DB3}">
+					<File Id="fil168971A5ECFE4D3E6D9506DEC7BEBB50" KeyPath="yes" Source="C:\Users\Owner\source\repos\SpHelptextHelperExtension\SpHelptextHelperExtension\bin\Debug\ja\Microsoft.Data.SqlClient.resources.dll" />
+				</Component>
+			</Directory>
+			<Directory Id="dir036AFACEF097ACC8C13551E26905CCE6" Name="ko">
+				<Component Id="cmpC33B34C8A9C93FA99385FEEC42398BA9" Guid="{94CA6B6B-19CB-4105-9051-695AD47F790C}">
+					<File Id="filF959C48F954AB86CC6220B7B2249FDC9" KeyPath="yes" Source="C:\Users\Owner\source\repos\SpHelptextHelperExtension\SpHelptextHelperExtension\bin\Debug\ko\Microsoft.Data.SqlClient.resources.dll" />
+				</Component>
+			</Directory>
+			<Directory Id="dir6A6C3710FAB75DD8FE7B7C4598A81D78" Name="pt-BR">
+				<Component Id="cmpBDCBB93A58E4A1358B415AA8C72028E1" Guid="{CB8E5456-A059-47D7-A0D7-0D2ED53803CE}">
+					<File Id="filA17CB5C9D44FE21F256944FCAEB3FFBF" KeyPath="yes" Source="C:\Users\Owner\source\repos\SpHelptextHelperExtension\SpHelptextHelperExtension\bin\Debug\pt-BR\Microsoft.Data.SqlClient.resources.dll" />
+				</Component>
+			</Directory>
+			<Directory Id="dirDC5F598C2563E4A4B37382F9F040C5C6" Name="ru">
+				<Component Id="cmp0E7B4FD01E09CBF57D4347BC2C564FF1" Guid="{0D81F51F-5985-4BF3-B7ED-D4C7FFF83E56}">
+					<File Id="fil141D351EF5990C0F20CACC1050F55992" KeyPath="yes" Source="C:\Users\Owner\source\repos\SpHelptextHelperExtension\SpHelptextHelperExtension\bin\Debug\ru\Microsoft.Data.SqlClient.resources.dll" />
+				</Component>
+			</Directory>
+			<Directory Id="dirAB741F80714A9EE79E3FA26FFC28469F" Name="runtimes">
+				<Directory Id="dir0CCDC69FDBDAB8BFE75F57C64E4285F7" Name="win-arm64">
+					<Directory Id="dirBCB8E39CCED5C32A9597CE68B8436874" Name="native">
+						<Component Id="cmp238E5C35DFB9029F32A7F6C50007ABA6" Guid="{40D75121-8602-4069-BDBE-E9F96DCF3EEC}">
+							<File Id="filE88D35447B618402B1FB6EC239319DB5" KeyPath="yes" Source="C:\Users\Owner\source\repos\SpHelptextHelperExtension\SpHelptextHelperExtension\bin\Debug\runtimes\win-arm64\native\WebView2Loader.dll" />
+						</Component>
+					</Directory>
+				</Directory>
+				<Directory Id="dirB15AB59A3ECE160FE20101532594C4E8" Name="win-x64">
+					<Directory Id="dir612CB47ECEFDD2813AEABF3A04828716" Name="native">
+						<Component Id="cmpA9F2EC1C657A9317E4CBA2849B682371" Guid="{C407B3CB-CA32-4358-899A-5BD98D09389A}">
+							<File Id="fil824BDCEC848E5796DD55220A283CF5CB" KeyPath="yes" Source="C:\Users\Owner\source\repos\SpHelptextHelperExtension\SpHelptextHelperExtension\bin\Debug\runtimes\win-x64\native\WebView2Loader.dll" />
+						</Component>
+					</Directory>
+				</Directory>
+				<Directory Id="dir2EEEA900CBD440E4291B138E7D35DE58" Name="win-x86">
+					<Directory Id="dirCA9FF661FD8A144308722451C5028AD4" Name="native">
+						<Component Id="cmp5B53D57AC2D79C61FF7E240CBAAD1112" Guid="{90F04AF1-E677-4185-9C66-9AEF1A338458}">
+							<File Id="fil69B272D49EC525259039CCA8CF7AD2D5" KeyPath="yes" Source="C:\Users\Owner\source\repos\SpHelptextHelperExtension\SpHelptextHelperExtension\bin\Debug\runtimes\win-x86\native\WebView2Loader.dll" />
+						</Component>
+					</Directory>
+				</Directory>
+			</Directory>
+			<Directory Id="dir95BE8A4D1C427771D8D61C15FF06DEC3" Name="WebView2.Templates">
+				<Component Id="cmpFD9E6D5E3B9C8F2AB9AD7F741943D82D" Guid="{5700587C-9DF6-442A-A951-1B9381C9D25E}">
+					<File Id="fil5CED994D9560D2E0EA475DFE642FE46B" KeyPath="yes" Source="C:\Users\Owner\source\repos\SpHelptextHelperExtension\SpHelptextHelperExtension\bin\Debug\WebView2.Templates\sp-helptext.html" />
+				</Component>
+			</Directory>
+			<Directory Id="dir2332C4D29266EA38C06CD0E176CF5945" Name="zh-Hans">
+				<Component Id="cmp9E6CB6288FA6CD1BBAC6194643A6B64B" Guid="{3E950F1C-E799-49D3-A305-4E0C98D8BEEC}">
+					<File Id="fil56ED11F2E6B2D625FA1AA1E3847D8FD9" KeyPath="yes" Source="C:\Users\Owner\source\repos\SpHelptextHelperExtension\SpHelptextHelperExtension\bin\Debug\zh-Hans\Microsoft.Data.SqlClient.resources.dll" />
+				</Component>
+			</Directory>
+			<Directory Id="dir76F8D4ABFEB7192B3D5ED9725DD90835" Name="zh-Hant">
+				<Component Id="cmpBBDF8D39961EE448C1545B57BDC0610E" Guid="{F77A4E99-4B27-49EF-B6D8-AD6DC6B77D14}">
+					<File Id="fil606092AB166425C26F7A58C0EB5D3A4B" KeyPath="yes" Source="C:\Users\Owner\source\repos\SpHelptextHelperExtension\SpHelptextHelperExtension\bin\Debug\zh-Hant\Microsoft.Data.SqlClient.resources.dll" />
+				</Component>
+			</Directory>
+		</DirectoryRef>
+	</Fragment>
+	<Fragment>
+		<ComponentGroup Id="SuperFormFiles">
+			<ComponentRef Id="cmp741570AB1F3FA4DBC2508B3BC38C38F4" />
+			<ComponentRef Id="cmpCCC354459421EBA2246D7F6408AAF801" />
+			<ComponentRef Id="cmpA9BB8B86F8652CB23561C35BDD87202C" />
+			<ComponentRef Id="cmp31816675AFE5D1384774B8A378ED0747" />
+			<ComponentRef Id="cmpE4892ACE74DFA8DAEEDF09B4EFCD7A87" />
+			<ComponentRef Id="cmpB4810D7605AF28C7C17787A3A855F1BC" />
+			<ComponentRef Id="cmp8E216F6887D37B803CECF76C1D77B59C" />
+			<ComponentRef Id="cmpACF2953F6ACB72E540785A103CA27D20" />
+			<ComponentRef Id="cmp048B937D0372E8994D9BC27AC387458E" />
+			<ComponentRef Id="cmpFCF7C86F0D84B3CD4D84F1BCA640ACA7" />
+			<ComponentRef Id="cmpBDBC3D1254679C4531446D6C612FB69B" />
+			<ComponentRef Id="cmpB0E9F11906B51083BB599459553973B9" />
+			<ComponentRef Id="cmpFFE237805E5E7464DAD284227AB9DE13" />
+			<ComponentRef Id="cmp9B0850300AADAB6E1C41BD97B22B223E" />
+			<ComponentRef Id="cmp97FDE6267956EE357A52A02B8BD6EEAE" />
+			<ComponentRef Id="cmpB09204496A1AFE76506FEB8B660ECB46" />
+			<ComponentRef Id="cmpCD6C5D4994E498035F49201F4046BD80" />
+			<ComponentRef Id="cmp878F6AD04E38A21C0722D8873230ADBE" />
+			<ComponentRef Id="cmp545078B27AFC039E6C25DBB6F7262F6D" />
+			<ComponentRef Id="cmpDAF798DC90D932CAC33179726F5E5AE4" />
+			<ComponentRef Id="cmpCAEA514B8A52CDA2098D11B3D01806BB" />
+			<ComponentRef Id="cmpC73D84B4F3AAEF461C16FE2E7ABF5F20" />
+			<ComponentRef Id="cmp4039BD0E32057B5C074BB049A81E8210" />
+			<ComponentRef Id="cmpCDD1018DB4C5AF0B9D80050E843EA95F" />
+			<ComponentRef Id="cmp76844282680C668B5CDAB79268135E15" />
+			<ComponentRef Id="cmp068FD429211099E3BB23B1C447A3F69D" />
+			<ComponentRef Id="cmp9647793AA24AA9803B44B06C332AC6BD" />
+			<ComponentRef Id="cmp4BD0E6331B6EB5AC57724223723F6544" />
+			<ComponentRef Id="cmpBA5B7D85D3CF1A489522DF4CD0F1E59B" />
+			<ComponentRef Id="cmp877DD459F6ECB51CE0A250DDC977B1FC" />
+			<ComponentRef Id="cmp45E73E877F0A60C046DC55C4496FE6F0" />
+			<ComponentRef Id="cmp8F3A4CCCC0F0CF696CE2D87D61F9AA15" />
+			<ComponentRef Id="cmp68D9E52C675D1EB8E64162C8D72DF68D" />
+			<ComponentRef Id="cmp38986529846B564D9EAEA5B1F3743628" />
+			<ComponentRef Id="cmp1BDEC1439FE3605526AF472A46370DD2" />
+			<ComponentRef Id="cmp416F53E531C4C785BE8DBE0D7DF866EE" />
+			<ComponentRef Id="cmp16776EB232468EF9E9AEA493558E301C" />
+			<ComponentRef Id="cmp01A24CBA6024EB94FB5A9CE8A09AC33F" />
+			<ComponentRef Id="cmpD9F752AA575C7D9DF76381AD15F7C9F0" />
+			<ComponentRef Id="cmp1A0D21E82B9EA5AEA05C568E69514C74" />
+			<ComponentRef Id="cmpA0C581F0D7674B42F76E6B09DEF5F5B5" />
+			<ComponentRef Id="cmpD8590BF444652578A57D9EAFA062C69E" />
+			<ComponentRef Id="cmp61FABB578167AC6C11928E338CF2F915" />
+			<ComponentRef Id="cmp152AAC66F7691E3D4FBCF9245772FE90" />
+			<ComponentRef Id="cmpD245F60251B89C209F2B83ABB4649AF6" />
+			<ComponentRef Id="cmp5AA89F9B9D25C524C77B8DFD608563CB" />
+			<ComponentRef Id="cmp3862BFC4F245C51217CF844E6A7EF069" />
+			<ComponentRef Id="cmpC23BF44DD08173CC823B1A4D4EE6984D" />
+			<ComponentRef Id="cmp021251C7C48BD7B10EF06004B5925571" />
+			<ComponentRef Id="cmp8C29F71E2C9402C658BA565083190C47" />
+			<ComponentRef Id="cmpFA73638223EA50C8C9D7BF60D16C7953" />
+			<ComponentRef Id="cmpC49E26CCD832C8F6305E29B431DB72A1" />
+			<ComponentRef Id="cmp9ADB3C069744CBED9D331F2E33E8FC93" />
+			<ComponentRef Id="cmp10EEB8E26AF090625F6CCAAF913A399B" />
+			<ComponentRef Id="cmp7820C29C69D59F1AF22D5218BA5165F8" />
+			<ComponentRef Id="cmp49B8C64DEDACE1189EEDBB10CBEF3B14" />
+			<ComponentRef Id="cmpC0FCD435DBBE91CB163F33A2D34FECDF" />
+			<ComponentRef Id="cmp8A98096CCB352016E25194E5B450C541" />
+			<ComponentRef Id="cmp1055803A8A449E9B343B9C863437C474" />
+			<ComponentRef Id="cmp0019BBA3317F5A6EB7C5044643E750B9" />
+			<ComponentRef Id="cmpD796884B6CCA5518BDD528F76D9D9530" />
+			<ComponentRef Id="cmpF532E9586A51F6EDFBA72B221B87FC40" />
+			<ComponentRef Id="cmp449A2A645575C654EA34BB7C5D6F9831" />
+			<ComponentRef Id="cmpE7BDE4ACCAAB4AB7CC026A7A5454017D" />
+			<ComponentRef Id="cmpEAFD684A5C316310BB56373B9DC6042E" />
+			<ComponentRef Id="cmp3134EDB5004BC979CBB75D890B6EF1C6" />
+			<ComponentRef Id="cmp19CEF01FC6E1163F9A193B715DDDF3AF" />
+			<ComponentRef Id="cmp5091BC70A621FE6B523E40DE2EEA96E3" />
+			<ComponentRef Id="cmp26D7CE5C2F5E9E5AF2023C7DE044D636" />
+			<ComponentRef Id="cmpF42559DDA81214CD590F3D98F67B19CE" />
+			<ComponentRef Id="cmp406F95B0783C209647B2D579E45ACE53" />
+			<ComponentRef Id="cmpA9BD57A670F19B035155B5D530525FD2" />
+			<ComponentRef Id="cmp82C7245D0B0968A510D377BE72309255" />
+			<ComponentRef Id="cmp35CE845E11C0D51719B7CD28B40C9ECB" />
+			<ComponentRef Id="cmpA034054DE398F9F4393138EEC53355BB" />
+			<ComponentRef Id="cmp73398DAEEDA25D73634E96370D311A70" />
+			<ComponentRef Id="cmpC352AB0F80B7FD2BF878B55D2A7B51CA" />
+			<ComponentRef Id="cmp8C15E2CFF2096BD3C8BCA653CFD9A819" />
+			<ComponentRef Id="cmpCB499C84B4E48F0255B101579D3E68C5" />
+			<ComponentRef Id="cmp641AE96FC702A97AD5EB73D0FAD11A64" />
+			<ComponentRef Id="cmp13ABFE67E9A0DBC1E27FC34B3A4A81D9" />
+			<ComponentRef Id="cmp90C9EF416E6128904E108DA8F93327AD" />
+			<ComponentRef Id="cmp7EA6E5EFBBBEA5E1B419793139F33D4F" />
+			<ComponentRef Id="cmp4780D9B35990A6DA24D39C636D294781" />
+			<ComponentRef Id="cmp3CD48A24C4899628CC9F88671E6C0DCE" />
+			<ComponentRef Id="cmpB305CC29C0BFCB1384CA9F6B9017784C" />
+			<ComponentRef Id="cmp7A1879377AF4BCEF12C1C48A5EE82603" />
+			<ComponentRef Id="cmp2FEF3E7E54BBE2482457B81AE0974319" />
+			<ComponentRef Id="cmpD5C8C4D11D314F34BAC718B9BC26FC6A" />
+			<ComponentRef Id="cmp8BA8DBBB652F717AA082B56423FE533E" />
+			<ComponentRef Id="cmpBB9926F0B1352B6B810FB3DD98328701" />
+			<ComponentRef Id="cmp40BBD8506EDEFA8FD1A6019ECBF40253" />
+			<ComponentRef Id="cmp4745764A420C9485BFD2DFC844582033" />
+			<ComponentRef Id="cmpDD572173385F9F4EB82E5C284F09B938" />
+			<ComponentRef Id="cmp72F41CA562C377CED8CE1E62F6691DE1" />
+			<ComponentRef Id="cmpCF06CF7A326D95E9B45FD466D8AFA203" />
+			<ComponentRef Id="cmp4B8FBF8012747DEAADB5FC35BCA4BA0D" />
+			<ComponentRef Id="cmp051700165E39914973C70701F7326FB5" />
+			<ComponentRef Id="cmp7CF9E3AE1962E635189273A7FDA8F4D8" />
+			<ComponentRef Id="cmp968898F0F0D0AF94FB18EC01EC92737B" />
+			<ComponentRef Id="cmp55F0C3AB0E266B6D19FF93D0B4094092" />
+			<ComponentRef Id="cmp8A5F89CB51B1996D52DCF6FF4D263E92" />
+			<ComponentRef Id="cmp982CD9E1A3E30C92D69D5FBD5DDF9A54" />
+			<ComponentRef Id="cmp8DE244841BD8180C6DAF63CBC4DEFE07" />
+			<ComponentRef Id="cmp11946DE06CFF058ADB68C6AC31E4CE05" />
+			<ComponentRef Id="cmp3520CD4B18D5878036CEED849FC8B480" />
+			<ComponentRef Id="cmp3D80D420E9C202C7F9CFA932F108C727" />
+			<ComponentRef Id="cmp9D4B8A7EAC1F5BF3CC1EB3DA16817DF6" />
+			<ComponentRef Id="cmp3BFC0E5FA4FBA4950EA582534CC9811F" />
+			<ComponentRef Id="cmpAB8D193E1D0A075544CFA358AC3C5E6B" />
+			<ComponentRef Id="cmp869292A7B9405F10EBE3FF9DA521F931" />
+			<ComponentRef Id="cmp510B6E1A6AC67BAD63B04422BE732AA5" />
+			<ComponentRef Id="cmpBE4F0F0F4E3C454C54F45E5EC5F3D80F" />
+			<ComponentRef Id="cmp8E25725254B0BA1A2A3D4B3CD4869EBD" />
+			<ComponentRef Id="cmp0373E6CBAF55F6F38B56629709B7E328" />
+			<ComponentRef Id="cmp8985639D07C82E40DD1EF7F3F6360B0B" />
+			<ComponentRef Id="cmpE404DDF0FCCF15FCFF71B1E60245E17B" />
+			<ComponentRef Id="cmp953681BD83A7E6901C42E864FBBAAA39" />
+			<ComponentRef Id="cmpAA5218D9FBCAEE5F5E085D3AFAAD44F4" />
+			<ComponentRef Id="cmpC10F730B327B21A4C20D2F59B44E8A2A" />
+			<ComponentRef Id="cmpD63881DD12A711C672306183B66F81E8" />
+			<ComponentRef Id="cmpC33B34C8A9C93FA99385FEEC42398BA9" />
+			<ComponentRef Id="cmpBDCBB93A58E4A1358B415AA8C72028E1" />
+			<ComponentRef Id="cmp0E7B4FD01E09CBF57D4347BC2C564FF1" />
+			<ComponentRef Id="cmp238E5C35DFB9029F32A7F6C50007ABA6" />
+			<ComponentRef Id="cmpA9F2EC1C657A9317E4CBA2849B682371" />
+			<ComponentRef Id="cmp5B53D57AC2D79C61FF7E240CBAAD1112" />
+			<ComponentRef Id="cmpFD9E6D5E3B9C8F2AB9AD7F741943D82D" />
+			<ComponentRef Id="cmp9E6CB6288FA6CD1BBAC6194643A6B64B" />
+			<ComponentRef Id="cmpBBDF8D39961EE448C1545B57BDC0610E" />
+		</ComponentGroup>
+	</Fragment>
+</Wix>
