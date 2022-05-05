@@ -13,4 +13,4 @@ Environment > Keyboard
 
 Extension is under *VSIX.SpHelpText*. Set command to shortcut of choice.
 
-![image](https://user-images.githubusercontent.com/28899268/166933099-6af126a5-25cb-47c2-842a-6601fcc53686.png)
+![image](https://user-images.githubusercontent.com/28899268/166933458-ba8f2c96-9124-4ce7-9f21-d179b0210b55.png)
